@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using PhoneDirectoryWPF.Containers;
 using PhoneDirectoryWPF.Data;
-using PhoneDirectoryWPF.Containers;
+using System;
+using System.Collections.Generic;
 using System.Data;
-
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace PhoneDirectoryWPF
 {
@@ -28,46 +19,54 @@ namespace PhoneDirectoryWPF
             InitializeComponent();
         }
 
-        private void button_Copy_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void extensionTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             SearchExtension();
         }
 
-        private void SearchExtension()
+        private async void SearchExtension()
         {
             var value = extensionTextBox.Text.Trim();
 
             var query = "SELECT * FROM extensions WHERE extension LIKE '" + value + "%'";
 
-
-            using (var results = DBFactory.GetMySQLDatabase().DataTableFromQueryString(query))
+            await Task.Run(() =>
             {
-                var resultList = new List<Extension>();
-
-                foreach (DataRow row in results.Rows)
+                using (var results = DBFactory.GetMySQLDatabase().DataTableFromQueryString(query))
                 {
-                    resultList.Add(new Extension(row));
+                    var resultList = new List<Extension>();
 
+                    foreach (DataRow row in results.Rows)
+                    {
+                        resultList.Add(new Extension(row));
+                    }
+
+                    PopulateResults(resultList);
                 }
-
-                PopulateResults(resultList);
-
-            }
-
+            });
         }
-
 
         private void PopulateResults(List<Extension> results)
         {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(new Action(() => PopulateResults(results)));
+            }
+            else
+            {
+                resultListView.ItemsSource = null;
+                resultListView.Items.Clear();
+                resultListView.ItemsSource = results;
+            }
+        }
+
+        private void clearButton_Click(object sender, RoutedEventArgs e)
+        {
+            extensionTextBox.Clear();
+            userTextBox.Clear();
+            departmentTextBox.Clear();
             resultListView.ItemsSource = null;
             resultListView.Items.Clear();
-            resultListView.ItemsSource = results;
-
         }
     }
 }
