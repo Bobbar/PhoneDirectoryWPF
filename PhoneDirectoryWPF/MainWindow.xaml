@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Phone Directory" Height="643" Width="767" FontFamily="Consolas" FontSize="14">
     <Grid>
-        
+        <GroupBox x:Name="groupBox" Header="Search" Height="166.45" Margin="10,10,10,0" VerticalAlignment="Top">
+            <Grid Margin="4,5.607,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48*"/>
+                    <RowDefinition Height="37*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="142*"/>
+                    <ColumnDefinition Width="292*"/>
+                    <ColumnDefinition Width="261*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="label" Content="Extension" Height="29" Margin="12,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+                <TextBox x:Name="extensionTextBox" Height="20" Margin="12,39,10,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyUp="extensionTextBox_KeyUp"/>
+                <Label x:Name="label_Copy" Content="Name/User" Height="29" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="88"/>
+                <TextBox x:Name="userTextBox" Height="20" Margin="10,39,10,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.504,0.45" Grid.Column="1"/>
+                <TextBox x:Name="departmentTextBox" Height="20" Margin="10,39,10,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.504,0.45" Grid.Column="2"/>
+                <Label x:Name="label_Copy1" Content="Department" Height="29" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="88"/>
+                <Button x:Name="button" Content="New" HorizontalAlignment="Left" Height="34.746" Margin="12,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79"/>
+                <Button x:Name="button_Copy" Content="Clear" HorizontalAlignment="Right" Height="34.746" Margin="0,10,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="button_Copy_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox1" Header="Results" Margin="10,181,10,10">
+            <ListView x:Name="resultListView" Margin="0,0,0,2.5">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Extension" Width="100" DisplayMemberBinding="{Binding Number}"/>
+                        <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User}"/>
+                        <GridViewColumn Header="Department" Width="200" DisplayMemberBinding="{Binding Department}"/>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+
     </Grid>
 </Window>
