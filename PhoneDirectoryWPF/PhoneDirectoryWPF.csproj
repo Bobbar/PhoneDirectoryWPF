@@ -39,6 +39,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\Phone.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PhoneDirectoryWPF.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Databases">
       <HintPath>..\..\AssetManagerCSharp\Databases\bin\Release\Databases.dll</HintPath>
@@ -80,6 +83,8 @@
     <Compile Include="Data\Classes\ColumnNameAttribute.cs" />
     <Compile Include="Data\Classes\DataMapObject.cs" />
     <Compile Include="Data\DBFactory.cs" />
+    <Compile Include="Helpers\ControlHelper.cs" />
+    <Compile Include="Helpers\DBControlAttribute.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

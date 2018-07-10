@@ -1,11 +1,15 @@
-﻿using PhoneDirectoryWPF.Containers;
+﻿using Database.Data;
+using PhoneDirectoryWPF.Containers;
 using PhoneDirectoryWPF.Data;
+using PhoneDirectoryWPF.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace PhoneDirectoryWPF
 {
@@ -17,22 +21,66 @@ namespace PhoneDirectoryWPF
         public MainWindow()
         {
             InitializeComponent();
+            InitDBControls();
         }
 
-        private void extensionTextBox_KeyUp(object sender, KeyEventArgs e)
+        private void InitDBControls()
         {
-            SearchExtension();
+            extensionTextBox.Tag = new DBControlAttribute("extension", ControlSearchType.StartsWith);
+            userTextBox.Tag = new DBControlAttribute("user", ControlSearchType.EntireValue);
+            departmentTextBox.Tag = new DBControlAttribute("department", ControlSearchType.StartsWith);
+        }
+
+        private List<DBQueryParameter> GetQueryParams()
+        {
+            var queryParams = new List<DBQueryParameter>();
+            var controls = ControlHelper.GetChildControls(this);
+
+            foreach (Control ctl in controls)
+            {
+                if (ctl.Tag != null && ctl.Tag is DBControlAttribute)
+                {
+                    var dbAttr = (DBControlAttribute)ctl.Tag;
+                    string ctlValue = null;
+
+                    if (ctl is TextBox)
+                    {
+                        ctlValue = ((TextBox)ctl).Text.Trim();
+                    }
+
+                    if (!string.IsNullOrEmpty(ctlValue))
+                    {
+                        switch (dbAttr.SearchType)
+                        {
+                            case ControlSearchType.EntireValue:
+                                queryParams.Add(new DBQueryParameter(dbAttr.ColumnName, ctlValue, WildCardType.Both, "AND"));
+                                break;
+
+                            case ControlSearchType.StartsWith:
+                                queryParams.Add(new DBQueryParameter(dbAttr.ColumnName, ctlValue, WildCardType.StartsWith, "AND"));
+                                break;
+
+                            case ControlSearchType.EndsWith:
+                                queryParams.Add(new DBQueryParameter(dbAttr.ColumnName, ctlValue, WildCardType.EndsWith, "AND"));
+                                break;
+                        }
+                    }
+                }
+            }
+
+            return queryParams;
         }
 
         private async void SearchExtension()
         {
-            var value = extensionTextBox.Text.Trim();
+            var query = "SELECT * FROM extensions WHERE ";
+            var queryParams = GetQueryParams();
 
-            var query = "SELECT * FROM extensions WHERE extension LIKE '" + value + "%'";
+            if (queryParams.Count < 1) return;
 
             await Task.Run(() =>
             {
-                using (var results = DBFactory.GetMySQLDatabase().DataTableFromQueryString(query))
+                using (var results = DBFactory.GetMySQLDatabase().DataTableFromParameters(query, queryParams))
                 {
                     var resultList = new List<Extension>();
 
@@ -67,6 +115,21 @@ namespace PhoneDirectoryWPF
             departmentTextBox.Clear();
             resultListView.ItemsSource = null;
             resultListView.Items.Clear();
+        }
+
+        private void extensionTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchExtension();
+        }
+
+        private void userTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchExtension();
+        }
+
+        private void departmentTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchExtension();
         }
     }
 }
