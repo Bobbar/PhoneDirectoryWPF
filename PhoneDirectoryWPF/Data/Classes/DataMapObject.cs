@@ -9,7 +9,7 @@ namespace PhoneDirectoryWPF.Data.Classes
     /// <summary>
     /// Data mapper for classes tagged with <see cref="DataColumnNameAttribute"/>
     /// </summary>
-    public abstract class MappableObject : IDisposable
+    public abstract class DataMapObject : IDisposable
     {
         #region Fields
 
@@ -46,11 +46,11 @@ namespace PhoneDirectoryWPF.Data.Classes
 
         #region Constructors
 
-        public MappableObject()
+        public DataMapObject()
         {
         }
 
-        public MappableObject(DataTable data)
+        public DataMapObject(DataTable data)
         {
             var row = ((DataTable)data).Rows[0];
             populatingTable = data;
@@ -58,7 +58,7 @@ namespace PhoneDirectoryWPF.Data.Classes
             MapProperty(this, row);
         }
 
-        public MappableObject(DataRow data)
+        public DataMapObject(DataRow data)
         {
             var row = data;
             populatingTable = row.Table;
@@ -137,7 +137,7 @@ namespace PhoneDirectoryWPF.Data.Classes
                 else
                 {
                     // If the property does not contain a target attribute, check to see if it is a nested class inheriting the DataMapping class.
-                    if (typeof(MappableObject).IsAssignableFrom(prop.PropertyType))
+                    if (typeof(DataMapObject).IsAssignableFrom(prop.PropertyType))
                     {
                         // Recurse with nested DataMapping properties.
                         var nestObject = prop.GetValue(obj, null);

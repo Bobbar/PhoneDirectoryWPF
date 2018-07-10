@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace PhoneDirectoryWPF
+namespace PhoneDirectoryWPF.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -38,6 +38,8 @@ namespace PhoneDirectoryWPF
 
             foreach (Control ctl in controls)
             {
+
+                
                 if (ctl.Tag != null && ctl.Tag is DBControlAttribute)
                 {
                     var dbAttr = (DBControlAttribute)ctl.Tag;
@@ -80,7 +82,7 @@ namespace PhoneDirectoryWPF
 
             await Task.Run(() =>
             {
-                using (var results = DBFactory.GetMySQLDatabase().DataTableFromParameters(query, queryParams))
+                using (var results = DBFactory.GetMySqlDatabase().DataTableFromParameters(query, queryParams))
                 {
                     var resultList = new List<Extension>();
 
@@ -130,6 +132,22 @@ namespace PhoneDirectoryWPF
         private void departmentTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             SearchExtension();
+        }
+
+        private void resultListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = resultListView.SelectedItem;
+            Console.WriteLine(item.ToString());
+
+            var editWindow = new EditWindow((Extension)item);
+            editWindow.Show();
+
+        }
+
+        private void newButton_Click(object sender, RoutedEventArgs e)
+        {
+            var editWindow = new EditWindow();
+            editWindow.Show();
         }
     }
 }

@@ -71,7 +71,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI\EditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -83,11 +87,16 @@
     <Compile Include="Data\Classes\ColumnNameAttribute.cs" />
     <Compile Include="Data\Classes\DataMapObject.cs" />
     <Compile Include="Data\DBFactory.cs" />
+    <Compile Include="Data\Functions\MapObjectFunctions.cs" />
     <Compile Include="Helpers\ControlHelper.cs" />
+    <Compile Include="Helpers\ControlParser.cs" />
     <Compile Include="Helpers\DBControlAttribute.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UI\EditWindow.xaml.cs">
+      <DependentUpon>EditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+      <!-- <SubType>Code</SubType> -->
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +128,7 @@
   <ItemGroup>
     <None Include="Resources\Phone.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

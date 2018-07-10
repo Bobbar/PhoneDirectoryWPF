@@ -1,4 +1,4 @@
-﻿<Window x:Class="PhoneDirectoryWPF.MainWindow"
+﻿<Window x:Class="PhoneDirectoryWPF.UI.MainWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
@@ -12,9 +12,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PhoneDirectoryWPF"
+        xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         mc:Ignorable="d"
-        Title="Phone Directory" Height="643" Width="767" FontSize="14" WindowStyle="ThreeDBorderWindow">
+        Title="Phone Directory" Height="643" Width="767" FontSize="14" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <GroupBox x:Name="groupBox" Header="Search" Height="166.45" Margin="10,10,10,0" VerticalAlignment="Top">
             <Grid Margin="4,5.607,0,0">
@@ -27,22 +27,20 @@
                     <ColumnDefinition Width="292*"/>
                     <ColumnDefinition Width="261*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="extensionTextBox" Height="29" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="extensionTextBox_KeyUp" materialDesign:HintAssist.Hint="Extension"/>
+                <TextBox x:Name="extensionTextBox" Height="29" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="extensionTextBox_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension"/>
                 <TextBox x:Name="userTextBox" Height="29" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" KeyUp="userTextBox_KeyUp"/>
                 <TextBox x:Name="departmentTextBox" Height="29" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" KeyUp="departmentTextBox_KeyUp"/>
-                <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79"/>
+                <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click"/>
                 <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="groupBox1" Header="Results" Margin="10,181,10,10">
-            <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1">
-
+            <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick">
                 <ListView.View>
-                    <GridView>
+                    <GridView x:Name="resultGridView" AllowsColumnReorder="False">
                         <GridViewColumn Header="Extension" Width="100" DisplayMemberBinding="{Binding Number}"/>
                         <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User}"/>
                         <GridViewColumn Header="Department" Width="200" DisplayMemberBinding="{Binding Department}"/>
-
                     </GridView>
                 </ListView.View>
             </ListView>

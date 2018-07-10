@@ -10,9 +10,9 @@ namespace PhoneDirectoryWPF.Data
     {
         private static string serverIp = "10.10.0.89";
 
-        public static IDatabase GetMySQLDatabase()
+        public static IDatabase GetMySqlDatabase()
         {
-            return new MySqlDatabase(serverIp, "phone_dir_user", "Ph0n3D1rU53rP455", "phone_directory");
+            return new MySqlDatabase(serverIp, "phone_dir_user", "Ph0n3D1rU53rP455", "phone_test_db");
         }
 
     }
