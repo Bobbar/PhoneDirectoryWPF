@@ -15,7 +15,7 @@
 
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHost">
         <Grid>
-            <GroupBox x:Name="groupBox" Header="Edit Extension" Margin="10">
+            <GroupBox x:Name="FieldGroupBox" Header="Edit Extension" Margin="10">
                 <Grid>
 
                     <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="idTextBox" Margin="10,0,10,7" TextWrapping="Wrap" Grid.Column="0" IsReadOnly="True" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="53" VerticalAlignment="Bottom"/>
                     <TextBox x:Name="extensionTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=Default}"/>
-                    <TextBox x:Name="firstNameTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="2" materialDesign:HintAssist.Hint="First Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding FirstName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" KeyUp="firstNameTextBox_KeyUp" />
+                    <TextBox x:Name="firstNameTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="2" materialDesign:HintAssist.Hint="First Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding FirstName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox x:Name="lastNameTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="3" materialDesign:HintAssist.Hint="Last Name (Optional)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding LastName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox x:Name="departmentTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="4" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Department, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox x:Name="extensionNameTextBox" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Height="53" VerticalAlignment="Bottom" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />

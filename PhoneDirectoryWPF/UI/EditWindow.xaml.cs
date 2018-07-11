@@ -20,6 +20,8 @@ namespace PhoneDirectoryWPF.UI
         public EditWindow()
         {
             InitializeComponent();
+            this.Title = "New";
+            this.FieldGroupBox.Header = "Add New Extension";
             extensionContext = new Extension();
             this.DataContext = extensionContext;
             saveButton.Visibility = Visibility.Collapsed;
@@ -28,6 +30,8 @@ namespace PhoneDirectoryWPF.UI
         public EditWindow(Extension extension)
         {
             InitializeComponent();
+            this.Title = "Edit";
+            this.FieldGroupBox.Header = "Edit Extension";
             addButton.Visibility = Visibility.Collapsed;
 
             this.extensionContext = extension;
@@ -38,13 +42,33 @@ namespace PhoneDirectoryWPF.UI
         private void UpdateExtension()
         {
             // TODO: Field verification.
-
             var ctx = (Extension)this.DataContext;
-            ctx.Update();
+
+            try
+            {
+                ctx.Update();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                switch ((MySql.Data.MySqlClient.MySqlErrorCode)ex.Number)
+                {
+                    case MySql.Data.MySqlClient.MySqlErrorCode.DuplicateKeyEntry:
+                        var prompt = string.Format("An extension with the value ({0}) already exists in the database.", ((Extension)DataContext).Number);
+                        UserPrompts.PopupMessage(prompt, "Duplicates Not Allowed");
+                        break;
+
+                    case MySql.Data.MySqlClient.MySqlErrorCode.NoDefaultForField:
+                        UserPrompts.PopupMessage(ex.Message, "Required Field Empty");
+                        break;
+                }
+
+                Console.WriteLine(ex.Number + "  " + ex.ToString());
+                return;
+            }
+
             // Copy new values to the original context to update the main window values.
             this.extensionContext.CopyValues(ctx);
-            this.DialogResult = true;
-            this.Close();
+            UserPrompts.PopupMessage("Extension updated.", "Success!");
         }
 
         private void AddExtension()
@@ -69,7 +93,6 @@ namespace PhoneDirectoryWPF.UI
                         break;
                 }
 
-                // UserPrompts.PopupMessage(ex.ToString());
                 Console.WriteLine(ex.Number + "  " + ex.ToString());
             }
         }
@@ -87,11 +110,6 @@ namespace PhoneDirectoryWPF.UI
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void firstNameTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            Console.WriteLine(extensionContext.ToString());
         }
     }
 }
