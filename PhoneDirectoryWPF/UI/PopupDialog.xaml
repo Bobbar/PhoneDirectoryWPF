@@ -15,37 +15,28 @@
      Background="{DynamicResource MaterialDesignDarkBackground}"
      Foreground="{DynamicResource MaterialDesignLightBackground}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+                 mc:Ignorable="d" Width="498" Height="220">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Name="PopupContent">
         <!--<smtx:XamlDisplay Key="PopupDialogContent">-->
-        
+      
         <StackPanel Margin="16">
-            <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center" Margin="16" IsIndeterminate="True" Value="0" />
-            <TextBlock Name="MessageText"></TextBlock>
-            <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" 
-                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                            CommandParameter="Sample2Cancel"
-                                            HorizontalAlignment="Center">CANCEL</Button>
+            <TextBox Name="MessageText" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="112"></TextBox>
+            <Button  IsCancel="True" 
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    HorizontalAlignment="Center" Content="OK" Margin="170,15,169,0" Width="127"/>
         </StackPanel>
         <!--</smtx:XamlDisplay>-->
-
-
-        <!--<materialDesign:DialogHost Name="PopupDialog" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <materialDesign:DialogHost.DialogContent>
-                <StackPanel Margin="16">
-                    <TextBlock>Blalfjkahsdlkfjhasdlkfjhasldkfh</TextBlock>
-                </StackPanel>
-            </materialDesign:DialogHost.DialogContent>
-        </materialDesign:DialogHost>-->
+        <!--Style="{StaticResource MaterialDesignFlatButton}"-->
     </Grid>
 </UserControl>

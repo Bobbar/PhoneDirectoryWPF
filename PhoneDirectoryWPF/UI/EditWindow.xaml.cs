@@ -85,8 +85,8 @@ namespace PhoneDirectoryWPF.UI
         private void button_Click(object sender, RoutedEventArgs e)
         {
             var popup = new PopupDialog();
-            popup.Owne
-            MaterialDesignThemes.Wpf.DialogHost.Show(popup.PopCon);
+           
+            MaterialDesignThemes.Wpf.DialogHost.Show(new PopupDialog("ERROR: Testing blah blah blah blah blah blah"));
 
             //MaterialDesignThemes.Wpf.DialogHost.Show(new PopupDialog());
 

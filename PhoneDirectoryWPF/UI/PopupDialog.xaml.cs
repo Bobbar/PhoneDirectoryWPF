@@ -30,6 +30,13 @@ namespace PhoneDirectoryWPF.UI
            
         }
 
+        public PopupDialog(string message)
+        {
+            InitializeComponent();
+            MessageText.Text = message;
+
+        }
+
 
     }
 }
