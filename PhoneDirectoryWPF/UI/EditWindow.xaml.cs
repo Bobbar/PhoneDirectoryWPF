@@ -56,6 +56,8 @@ namespace PhoneDirectoryWPF.UI
             }
             catch (Exception ex)
             {
+
+                MaterialDesignThemes.Wpf.DialogHost.Show(new PopupDialog());
                 Console.WriteLine(ex.GetType().ToString() + "  " + ex.ToString());
             }
         }
@@ -78,6 +80,16 @@ namespace PhoneDirectoryWPF.UI
         private void firstNameTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             Console.WriteLine(extensionContext.ToString());
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            var popup = new PopupDialog();
+            popup.Owne
+            MaterialDesignThemes.Wpf.DialogHost.Show(popup.PopCon);
+
+            //MaterialDesignThemes.Wpf.DialogHost.Show(new PopupDialog());
+
         }
     }
 }
