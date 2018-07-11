@@ -6,53 +6,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         xmlns:Containers="clr-namespace:PhoneDirectoryWPF.Containers" 
-     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignDarkBackground}"
-     Foreground="{DynamicResource MaterialDesignLightBackground}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+        Style="{StaticResource GlobalMaterialStyle}"
         mc:Ignorable="d"
-        Title="Edit" Height="367" Width="952.9" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Edit" Height="367" Width="1070.9" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
     <Window.DataContext>
         <Containers:Extension />
     </Window.DataContext>
-    
+
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHost">
         <Grid>
             <GroupBox x:Name="groupBox" Header="Edit Extension" Margin="10">
                 <Grid>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="85*" />
-                        <RowDefinition Height="67*" />
-                        <RowDefinition Height="105*" />
+                        <RowDefinition Height="34*" />
+                        <RowDefinition Height="35*" />
+                        <RowDefinition Height="16*" />
+                        <RowDefinition Height="48*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="73*" />
-                        <ColumnDefinition Width="106*" />
-                        <ColumnDefinition Width="213*" />
-                        <ColumnDefinition Width="225*" />
-                        <ColumnDefinition Width="316*" />
+                        <ColumnDefinition Width="80*" />
+                        <ColumnDefinition Width="130*" />
+                        <ColumnDefinition Width="270*" />
+                        <ColumnDefinition Width="285*" />
+                        <ColumnDefinition Width="262*" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="idTextBox" Height="29" Margin="10,47,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="0" IsReadOnly="True" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Label x:Name="label" Content="ID" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="56" Grid.Column="0" />
-                    <TextBox x:Name="extensionTextBox" Height="29" Margin="10,47,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Text="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=Default}" />
-                    <Label x:Name="label_Copy" Content="Extension" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="78" Grid.Column="1" />
-                    <TextBox x:Name="firstNameTextBox" Height="29" Margin="10,47,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" Text="{Binding FirstName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" KeyUp="firstNameTextBox_KeyUp" />
-                    <Label x:Name="label_Copy1" Content="First Name" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="119" Grid.Column="2" />
-                    <TextBox x:Name="lastNameTextBox" Height="29" Margin="10,47,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" Text="{Binding LastName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-                    <Label x:Name="label_Copy2" Content="Last Name (Optional)" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="175" Grid.Column="3" />
-                    <TextBox x:Name="departmentTextBox" Height="29" Margin="10,47,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="4" Text="{Binding Department, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-                    <Label x:Name="label_Copy3" Content="Department" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="175" Grid.Column="4" />
-                    <TextBox x:Name="extensionNameTextBox" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Height="29" VerticalAlignment="Bottom" IsReadOnly="True" Text="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
-                    <Label x:Name="label_Copy4" Content="Extension Name" HorizontalAlignment="Left" Margin="10,0,0,39" Width="119" Grid.Column="2" Grid.Row="1" Height="27" VerticalAlignment="Bottom" />
-                    <Grid Grid.Column="4" Margin="0,19,12,2" Grid.Row="2" HorizontalAlignment="Right" Width="195">
+                    <TextBox x:Name="idTextBox" Margin="10,0,10,7" TextWrapping="Wrap" Grid.Column="0" IsReadOnly="True" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="53" VerticalAlignment="Bottom"/>
+                    <TextBox x:Name="extensionTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=Default}"/>
+                    <TextBox x:Name="firstNameTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="2" materialDesign:HintAssist.Hint="First Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding FirstName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" KeyUp="firstNameTextBox_KeyUp" />
+                    <TextBox x:Name="lastNameTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="3" materialDesign:HintAssist.Hint="Last Name (Optional)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding LastName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox x:Name="departmentTextBox" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="4" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Department, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox x:Name="extensionNameTextBox" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Height="53" VerticalAlignment="Bottom" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                    <Grid Grid.Column="4" Margin="0,4,12,2" Grid.Row="3" HorizontalAlignment="Right" Width="195">
                         <Button x:Name="cancelButton" Content="Close" HorizontalAlignment="Left" Height="66" Margin="10,10,0,0" VerticalAlignment="Top" Width="177" Click="cancelButton_Click" />
                     </Grid>
-                    <WrapPanel HorizontalAlignment="Left" Margin="23,29,0,0" Grid.Row="2" Width="246" Grid.ColumnSpan="3">
+                    <WrapPanel HorizontalAlignment="Left" Margin="23,14,0,0" Grid.Row="3" Width="246" Grid.ColumnSpan="3">
                         <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Height="66" VerticalAlignment="Top" Width="110" Click="saveButton_Click" />
                         <Button x:Name="addButton" Content="Add" HorizontalAlignment="Left" Height="66" VerticalAlignment="Top" Width="110" Click="addButton_Click" />
                     </WrapPanel>

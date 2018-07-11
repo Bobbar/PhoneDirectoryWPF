@@ -7,14 +7,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
              xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
-     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignDarkBackground}"
-     Foreground="{DynamicResource MaterialDesignLightBackground}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+             Style="{StaticResource GlobalMaterialStyle}"
                  mc:Ignorable="d" Width="498" Height="220">
 
     <UserControl.Resources>
