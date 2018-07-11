@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using PhoneDirectoryWPF.Containers;
+﻿using PhoneDirectoryWPF.Containers;
 using PhoneDirectoryWPF.Data.Functions;
-using System.Data.Sql;
-using System.Data.SqlClient;
+using System;
+using System.Windows;
+using System.Windows.Input;
+
 namespace PhoneDirectoryWPF.UI
 {
     /// <summary>
@@ -22,6 +11,9 @@ namespace PhoneDirectoryWPF.UI
     /// </summary>
     public partial class EditWindow : Window
     {
+        // Reference to the extension from the main window.
+        // This is updated with new values after a successful DB update.
+        // The changes will then be reflected on the main window.
         private Extension extensionContext;
 
         public EditWindow()
@@ -35,15 +27,23 @@ namespace PhoneDirectoryWPF.UI
         public EditWindow(Extension extension)
         {
             InitializeComponent();
-            this.extensionContext = extension;
-            this.DataContext = extensionContext;
             addButton.Visibility = Visibility.Collapsed;
+
+            this.extensionContext = extension;
+            // Set this context to a copy from the database.
+            this.DataContext = extension.FromDatabase();
         }
 
         private void UpdateExtension()
         {
             // TODO: Field verification.
-            MapObjectFunctions.UpdateMapObject(extensionContext);
+
+            var ctx = (Extension)this.DataContext;
+            ctx.Update();
+            // Copy new values to the original context to update the main window values.
+            this.extensionContext.CopyValues(ctx);
+            this.DialogResult = true;
+            this.Close();
         }
 
         private void AddExtension()
@@ -52,14 +52,11 @@ namespace PhoneDirectoryWPF.UI
 
             try
             {
-
-                MapObjectFunctions.InsertMapObject(extensionContext);
+                extensionContext.Insert();
             }
             catch (Exception ex)
             {
-               
                 Console.WriteLine(ex.GetType().ToString() + "  " + ex.ToString());
-                            
             }
         }
 

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System;
 
 namespace PhoneDirectoryWPF.Data.Functions
 {
     public static class MapObjectFunctions
     {
-        public static int InsertMapObject(DataMapObject mapObject)
+        public static int Insert(this DataMapObject mapObject)
         {
             var selectQuery = "SELECT * FROM " + mapObject.TableName + " LIMIT 0";
 
@@ -20,7 +21,7 @@ namespace PhoneDirectoryWPF.Data.Functions
             }
         }
 
-        public static int UpdateMapObject(DataMapObject mapObject)
+        public static int Update(this DataMapObject mapObject)
         {
             var selectQuery = "SELECT * FROM " + mapObject.TableName + " WHERE " + mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName + " = '" + mapObject.Guid + "'";
 
@@ -28,6 +29,16 @@ namespace PhoneDirectoryWPF.Data.Functions
             {
                 PopulateRowFromObject(results.Rows[0], mapObject);
                 return DBFactory.GetMySqlDatabase().UpdateTable(selectQuery, results);
+            }
+        }
+
+        public static DataMapObject FromDatabase(this DataMapObject mapObject)
+        {
+            // Get a fresh copy of the object from the DB.
+            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectMapObject(mapObject)))
+            {
+                var newObj = Activator.CreateInstance(mapObject.GetType(), new object[] { results });
+                return (DataMapObject)newObj;
             }
         }
 

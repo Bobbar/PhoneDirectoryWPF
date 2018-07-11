@@ -88,6 +88,8 @@
     <Compile Include="Data\Classes\DataMapObject.cs" />
     <Compile Include="Data\DBFactory.cs" />
     <Compile Include="Data\Functions\MapObjectFunctions.cs" />
+    <Compile Include="Data\Queries.cs" />
+    <Compile Include="Data\Tables.cs" />
     <Compile Include="Helpers\ControlHelper.cs" />
     <Compile Include="Helpers\ControlParser.cs" />
     <Compile Include="Helpers\DBControlAttribute.cs" />

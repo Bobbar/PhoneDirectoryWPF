@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PhoneDirectoryWPF.Data.Classes;
-using System.Data;
+﻿using PhoneDirectoryWPF.Data.Classes;
 using System.ComponentModel;
+using System.Data;
 
 namespace PhoneDirectoryWPF.Containers
 {
@@ -13,6 +9,8 @@ namespace PhoneDirectoryWPF.Containers
         private string firstName;
         private string lastName;
         private string user;
+        private string number;
+        private string department;
 
         public string ID { get; set; }
 
@@ -22,7 +20,18 @@ namespace PhoneDirectoryWPF.Containers
         public override string TableName { get; set; } = "extensions";
 
         [DataColumnName("extension")]
-        public string Number { get; set; }
+        public string Number
+        {
+            get
+            {
+                return number;
+            }
+            set
+            {
+                number = value;
+                OnPropertyChanged(nameof(this.Number));
+            }
+        }
 
         [DataColumnName("user")]
         public string User
@@ -34,13 +43,23 @@ namespace PhoneDirectoryWPF.Containers
             set
             {
                 user = value;
-               // FormatUser();
                 OnPropertyChanged(nameof(this.User));
             }
         }
 
         [DataColumnName("department")]
-        public string Department { get; set; }
+        public string Department
+        {
+            get
+            {
+                return department;
+            }
+            set
+            {
+                department = value;
+                OnPropertyChanged(nameof(this.Department));
+            }
+        }
 
         [DataColumnName("firstname")]
         public string FirstName
@@ -72,7 +91,11 @@ namespace PhoneDirectoryWPF.Containers
             }
         }
 
-        public Extension() { }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Extension()
+        {
+        }
 
         public Extension(string id, string number, string firstName, string lastName)
         {
@@ -82,18 +105,30 @@ namespace PhoneDirectoryWPF.Containers
             this.LastName = lastName;
 
             FormatUser();
-            // this.User = string.Format("{0}, {1}", this.LastName, this.FirstName);
         }
 
-        public Extension(DataTable data) : base(data) { }
+        public Extension(DataTable data) : base(data)
+        {
+        }
 
-        public Extension(DataRow data) : base(data) { }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public Extension(DataRow data) : base(data)
+        {
+        }
 
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void CopyValues(Extension source)
+        {
+            this.Department = source.Department;
+            this.FirstName = source.FirstName;
+            this.Guid = source.Guid;
+            this.ID = source.ID;
+            this.LastName = source.LastName;
+            this.Number = source.Number;
+            this.User = source.User;
         }
 
         public override string ToString()
@@ -106,5 +141,4 @@ namespace PhoneDirectoryWPF.Containers
             this.User = string.Format("{0}, {1}", this.LastName, this.FirstName);
         }
     }
-
 }

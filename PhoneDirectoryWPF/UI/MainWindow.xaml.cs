@@ -39,7 +39,7 @@ namespace PhoneDirectoryWPF.UI
             foreach (Control ctl in controls)
             {
 
-                
+
                 if (ctl.Tag != null && ctl.Tag is DBControlAttribute)
                 {
                     var dbAttr = (DBControlAttribute)ctl.Tag;
@@ -96,6 +96,12 @@ namespace PhoneDirectoryWPF.UI
             });
         }
 
+        private void EditExtension(Extension extension)
+        {
+            var editWindow = new EditWindow(extension);
+            editWindow.ShowDialog();
+        }
+
         private void PopulateResults(List<Extension> results)
         {
             if (!Dispatcher.CheckAccess())
@@ -139,9 +145,7 @@ namespace PhoneDirectoryWPF.UI
             var item = resultListView.SelectedItem;
             Console.WriteLine(item.ToString());
 
-            var editWindow = new EditWindow((Extension)item);
-            editWindow.Show();
-
+            EditExtension((Extension)item);
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -149,5 +153,6 @@ namespace PhoneDirectoryWPF.UI
             var editWindow = new EditWindow();
             editWindow.Show();
         }
+
     }
 }
