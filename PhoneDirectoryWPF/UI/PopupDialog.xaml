@@ -29,13 +29,14 @@
 
     <Grid Name="PopupContent">
         <!--<smtx:XamlDisplay Key="PopupDialogContent">-->
-      
-        <StackPanel Margin="16">
-            <TextBox Name="MessageText" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="112"></TextBox>
-            <Button  IsCancel="True" 
+        <GroupBox Name="MessageHeader" Header="Error" Margin="10" FontSize="16" FontWeight="Medium">
+            <StackPanel>
+                <TextBox IsReadOnly="True" Name="MessageText" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="82" FontSize="14" Margin="10,0" FontWeight="Normal">Blah</TextBox>
+                <Button  IsCancel="True" 
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                    HorizontalAlignment="Center" Content="OK" Margin="170,15,169,0" Width="127"/>
-        </StackPanel>
+                    HorizontalAlignment="Center" Content="OK" Margin="170,20,169,0" Width="127"/>
+            </StackPanel>
+        </GroupBox>
         <!--</smtx:XamlDisplay>-->
         <!--Style="{StaticResource MaterialDesignFlatButton}"-->
     </Grid>

@@ -1,5 +1,6 @@
 ﻿using PhoneDirectoryWPF.Containers;
 using PhoneDirectoryWPF.Data.Functions;
+using PhoneDirectoryWPF.Helpers;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -54,11 +55,22 @@ namespace PhoneDirectoryWPF.UI
             {
                 extensionContext.Insert();
             }
-            catch (Exception ex)
+            catch (MySql.Data.MySqlClient.MySqlException ex)
             {
+                switch ((MySql.Data.MySqlClient.MySqlErrorCode)ex.Number)
+                {
+                    case MySql.Data.MySqlClient.MySqlErrorCode.DuplicateKeyEntry:
+                        var prompt = string.Format("An extension with the value ({0}) already exists in the database.", ((Extension)DataContext).Number);
+                        UserPrompts.PopupMessage(prompt, "Duplicates Not Allowed");
+                        break;
 
-                MaterialDesignThemes.Wpf.DialogHost.Show(new PopupDialog());
-                Console.WriteLine(ex.GetType().ToString() + "  " + ex.ToString());
+                    case MySql.Data.MySqlClient.MySqlErrorCode.NoDefaultForField:
+                        UserPrompts.PopupMessage(ex.Message, "Required Field Empty");
+                        break;
+                }
+
+                // UserPrompts.PopupMessage(ex.ToString());
+                Console.WriteLine(ex.Number + "  " + ex.ToString());
             }
         }
 
@@ -80,16 +92,6 @@ namespace PhoneDirectoryWPF.UI
         private void firstNameTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             Console.WriteLine(extensionContext.ToString());
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            var popup = new PopupDialog();
-           
-            MaterialDesignThemes.Wpf.DialogHost.Show(new PopupDialog("ERROR: Testing blah blah blah blah blah blah"));
-
-            //MaterialDesignThemes.Wpf.DialogHost.Show(new PopupDialog());
-
         }
     }
 }
