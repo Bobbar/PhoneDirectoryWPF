@@ -20,6 +20,11 @@ namespace PhoneDirectoryWPF.Data
             return string.Format("SELECT * FROM {0} WHERE {1} ='{2}'", mapObject.TableName, mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName, mapObject.Guid);
         }
 
+        public static string DeleteMapObject(DataMapObject mapObject)
+        {
+            return string.Format("DELETE FROM {0} WHERE {1} ='{2}'", mapObject.TableName, mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName, mapObject.Guid);
+        }
+
         /// <summary>
         /// SELECT * FROM <see cref="UsersCols.TableName"/> WHERE <see cref="UsersCols.UserName"/> = <paramref name="userName"/>
         /// </summary>

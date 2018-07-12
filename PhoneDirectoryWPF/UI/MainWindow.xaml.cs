@@ -164,5 +164,9 @@ namespace PhoneDirectoryWPF.UI
             NewExtension();
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            EditExtension((Extension)resultListView.SelectedItem);
+        }
     }
 }

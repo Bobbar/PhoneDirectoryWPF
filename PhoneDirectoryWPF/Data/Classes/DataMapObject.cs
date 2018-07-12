@@ -158,6 +158,14 @@ namespace PhoneDirectoryWPF.Data.Classes
             }
         }
 
+        public virtual void DeleteFromDatabase()
+        {
+            var affectedRows = DBFactory.GetMySqlDatabase().ExecuteNonQuery(Queries.DeleteMapObject(this));
+
+            if (affectedRows != 1)
+                throw new Exception("Error occured during delete. The number of affected rows was unexpected.");
+        }
+
         #region IDisposable Support
 
         private bool disposedValue = false;
