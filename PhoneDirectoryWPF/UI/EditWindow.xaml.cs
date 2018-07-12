@@ -1,6 +1,7 @@
 ﻿using PhoneDirectoryWPF.Containers;
 using PhoneDirectoryWPF.Data.Functions;
 using PhoneDirectoryWPF.Helpers;
+using PhoneDirectoryWPF.Security;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -69,6 +70,7 @@ namespace PhoneDirectoryWPF.UI
         private void UpdateExtension()
         {
             // TODO: Field verification.
+            SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
 
             var ctx = (Extension)this.DataContext;
 
@@ -92,6 +94,7 @@ namespace PhoneDirectoryWPF.UI
         private void AddExtension()
         {
             // TODO: Field verification.
+            SecurityFunctions.CheckForAccess(SecurityGroups.Add);
 
             try
             {
@@ -110,6 +113,35 @@ namespace PhoneDirectoryWPF.UI
             UserPrompts.PopupMessage("Extension added.", "Success!");
         }
 
+        private async void DeleteExtension()
+        {
+            SecurityFunctions.CheckForAccess(SecurityGroups.Delete);
+
+            var result = (bool)await UserPrompts.PopupDialog("Are you sure you want to delete this extension?", "Delete Extension", DialogButtons.YesNo);
+
+            if (!result)
+                return;
+
+            var ctx = (Extension)this.DataContext;
+
+            try
+            {
+                ctx.DeleteFromDatabase();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                HandleSqlException(ex);
+
+                Console.WriteLine(ex.Number + "  " + ex.ToString());
+                return;
+            }
+
+            await UserPrompts.PopupDialog(string.Format("Extension '{0}' deleted!", extensionContext.Number), "Success", DialogButtons.Default);
+            ((Extension)DataContext).Dispose();
+            extensionContext.Dispose();
+            this.Close();
+        }
+
         private void HandleSqlException(MySql.Data.MySqlClient.MySqlException ex)
         {
             switch ((MySql.Data.MySqlClient.MySqlErrorCode)ex.Number)
@@ -125,6 +157,10 @@ namespace PhoneDirectoryWPF.UI
 
                 case MySql.Data.MySqlClient.MySqlErrorCode.DataTooLong:
                     UserPrompts.PopupMessage(ex.Message, "Data Too Long");
+                    break;
+
+                default:
+                    UserPrompts.PopupMessage(ex.Message, "Unexpected Database Error!");
                     break;
             }
         }
@@ -146,7 +182,7 @@ namespace PhoneDirectoryWPF.UI
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DeleteExtension();
         }
     }
 }

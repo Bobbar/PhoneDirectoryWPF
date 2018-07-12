@@ -40,13 +40,13 @@
                     <TextBox x:Name="departmentTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="4" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Department, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox x:Name="extensionNameTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Height="53" VerticalAlignment="Bottom" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
                     <Grid Grid.Column="4" Margin="0,20,56,1" Grid.Row="3" HorizontalAlignment="Right" Width="195">
-                        <Button x:Name="cancelButton" Content="Close" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" VerticalAlignment="Top" Width="177" Click="cancelButton_Click" />
+                        <Button x:Name="cancelButton" Content="Close" Height="65" Margin="0,0,8,0" VerticalAlignment="Top" Click="cancelButton_Click" HorizontalAlignment="Right" Width="150" />
                     </Grid>
-                    <Grid Grid.Row="3" Grid.ColumnSpan="3" Margin="46,0,243,0" Height="106" VerticalAlignment="Top">
+                    <Grid Grid.Row="3" Grid.ColumnSpan="3" Margin="46,0,214,0" Height="106" VerticalAlignment="Top">
                         <StackPanel HorizontalAlignment="Center" Margin="0"  VerticalAlignment="Center" Width="Auto" Height="Auto">
-                            <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="140" Click="saveButton_Click" Margin="0,0,0,5" />
-                            <Button x:Name="addButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Add" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="140" Click="addButton_Click" Margin="0" />
-                            <Button x:Name="deleteButton" Content="Delete" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="140" Click="deleteButton_Click" />
+                            <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="saveButton_Click" Margin="0,0,0,5" />
+                            <Button x:Name="addButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Add" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="addButton_Click" Margin="0" />
+                            <Button x:Name="deleteButton" Content="Delete" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="deleteButton_Click" />
                         </StackPanel>
                     </Grid>
 
