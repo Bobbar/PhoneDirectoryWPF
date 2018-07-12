@@ -1,4 +1,5 @@
 ﻿using PhoneDirectoryWPF.Data.Classes;
+using PhoneDirectoryWPF.Data;
 using System.ComponentModel;
 using System.Data;
 
@@ -138,7 +139,30 @@ namespace PhoneDirectoryWPF.Containers
 
         private void FormatUser()
         {
-            this.User = string.Format("{0}, {1}", this.LastName, this.FirstName);
+            if (!string.IsNullOrEmpty(this.LastName) & !string.IsNullOrEmpty(this.FirstName))
+            {
+                this.User = string.Format("{0}, {1}", this.LastName, this.FirstName);
+            }
+            else if (string.IsNullOrEmpty(this.LastName) & !string.IsNullOrEmpty(this.FirstName))
+            {
+                this.User = this.FirstName;
+            }
+            else if (!string.IsNullOrEmpty(this.LastName) & string.IsNullOrEmpty(this.FirstName))
+            {
+                this.User = this.LastName;
+            }
+            else if (string.IsNullOrEmpty(this.LastName) & string.IsNullOrEmpty(this.FirstName))
+            {
+                this.User = string.Empty;
+            }
+        }
+
+        public override DataMapObject FromDatabase()
+        {
+            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectExtensionByNumber(this.Number)))
+            {
+                return new Extension(results);
+            }
         }
     }
 }

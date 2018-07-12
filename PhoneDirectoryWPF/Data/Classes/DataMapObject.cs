@@ -148,6 +148,16 @@ namespace PhoneDirectoryWPF.Data.Classes
             }
         }
 
+        public virtual DataMapObject FromDatabase()
+        {
+            // Get a fresh copy of the object from the DB.
+            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectMapObject(this)))
+            {
+                var newObj = Activator.CreateInstance(this.GetType(), new object[] { results });
+                return (DataMapObject)newObj;
+            }
+        }
+
         #region IDisposable Support
 
         private bool disposedValue = false;

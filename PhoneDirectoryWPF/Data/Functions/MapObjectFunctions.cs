@@ -33,16 +33,6 @@ namespace PhoneDirectoryWPF.Data.Functions
             }
         }
 
-        public static DataMapObject FromDatabase(this DataMapObject mapObject)
-        {
-            // Get a fresh copy of the object from the DB.
-            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectMapObject(mapObject)))
-            {
-                var newObj = Activator.CreateInstance(mapObject.GetType(), new object[] { results });
-                return (DataMapObject)newObj;
-            }
-        }
-
         public static DataColumnNameAttribute GetAttribute(this DataMapObject source, string properyName)
         {
             var prop = source.GetType().GetProperty(properyName);

@@ -94,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Containers\AccessGroup.cs" />
+    <Compile Include="Containers\InputEnabledNotify.cs" />
     <Compile Include="Containers\LocalUser.cs" />
     <Compile Include="Helpers\UserPrompts.cs" />
     <Compile Include="Security\InvalidAccessException.cs" />

@@ -14,7 +14,7 @@ namespace PhoneDirectoryWPF.Data
             public static string TableName = "extensions";
 
             public static string ID = "id";
-            public static string Extension = "extension";
+            public static string Number = "extension";
             public static string User = "user";
             public static string Department = "deparment";
             public static string Firstname = "firstname";
