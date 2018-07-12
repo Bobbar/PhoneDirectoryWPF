@@ -30,5 +30,16 @@ namespace PhoneDirectoryWPF.Helpers
 
             return childList;
         }
+
+        public static Control FindControlByName(Control parent, string name)
+        {
+            foreach (Control ctl in GetChildControls(parent))
+            {
+                if (ctl.Name == name)
+                    return ctl;
+            }
+
+            return null;
+        }
     }
 }

@@ -7,8 +7,6 @@ namespace PhoneDirectoryWPF.UI
     /// </summary>
     public partial class PopupDialog : UserControl
     {
-        public Grid PopCon { get { return PopupContent; } }
-
         public PopupDialog()
         {
             InitializeComponent();

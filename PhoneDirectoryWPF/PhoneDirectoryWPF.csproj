@@ -93,7 +93,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Containers\AccessGroup.cs" />
+    <Compile Include="Containers\LocalUser.cs" />
     <Compile Include="Helpers\UserPrompts.cs" />
+    <Compile Include="Security\InvalidAccessException.cs" />
+    <Compile Include="Security\SecurityFunctions.cs" />
+    <Compile Include="Security\SecurityGroups.cs" />
     <Compile Include="UI\PopupDialog.xaml.cs">
       <DependentUpon>PopupDialog.xaml</DependentUpon>
     </Compile>
@@ -117,7 +122,6 @@
     <Compile Include="Data\Queries.cs" />
     <Compile Include="Data\Tables.cs" />
     <Compile Include="Helpers\ControlHelper.cs" />
-    <Compile Include="Helpers\ControlParser.cs" />
     <Compile Include="Helpers\DBControlAttribute.cs" />
     <Compile Include="UI\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>

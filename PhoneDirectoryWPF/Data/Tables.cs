@@ -21,6 +21,22 @@ namespace PhoneDirectoryWPF.Data
             public static string Lastname = "lastname";
         }
 
+        public static class Security
+        {
+            public const string TableName = "security";
+            public const string SecModule = "sec_module";
+            public const string AccessLevel = "sec_access_level";
+            public const string Description = "sec_desc";
+        }
+
+        public static class Users
+        {
+            public const string TableName = "users";
+            public const string UserName = "usr_username";
+            public const string FullName = "usr_fullname";
+            public const string AccessLevel = "usr_access_level";
+            public const string Guid = "usr_UID";
+        }
 
     }
 }

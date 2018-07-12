@@ -2,6 +2,7 @@
 using PhoneDirectoryWPF.Containers;
 using PhoneDirectoryWPF.Data;
 using PhoneDirectoryWPF.Helpers;
+using PhoneDirectoryWPF.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -98,8 +99,18 @@ namespace PhoneDirectoryWPF.UI
 
         private void EditExtension(Extension extension)
         {
+            SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
+
             var editWindow = new EditWindow(extension);
             editWindow.ShowDialog();
+        }
+
+        private void NewExtension()
+        {
+            SecurityFunctions.CheckForAccess(SecurityGroups.Add);
+
+            var editWindow = new EditWindow();
+            editWindow.Show();
         }
 
         private void PopulateResults(List<Extension> results)
@@ -150,8 +161,7 @@ namespace PhoneDirectoryWPF.UI
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            var editWindow = new EditWindow();
-            editWindow.Show();
+            NewExtension();
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System;
+using System.Reflection;
 
 namespace PhoneDirectoryWPF.Data.Functions
 {
@@ -40,6 +41,17 @@ namespace PhoneDirectoryWPF.Data.Functions
                 var newObj = Activator.CreateInstance(mapObject.GetType(), new object[] { results });
                 return (DataMapObject)newObj;
             }
+        }
+
+        public static DataColumnNameAttribute GetAttribute(this DataMapObject source, string properyName)
+        {
+            var prop = source.GetType().GetProperty(properyName);
+
+            if (prop == null)
+                return null;
+
+            var attr = prop.GetCustomAttribute<DataColumnNameAttribute>(true);
+            return attr;
         }
 
         private static void PopulateRowFromObject(DataRow row, object obj)
