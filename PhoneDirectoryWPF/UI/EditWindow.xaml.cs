@@ -44,6 +44,7 @@ namespace PhoneDirectoryWPF.UI
         {
             InitializeComponent();
             saveButton.Visibility = Visibility.Collapsed;
+            deleteButton.Visibility = Visibility.Collapsed;
 
             this.Title = "New";
             this.FieldGroupBox.Header = "Add New Extension";
@@ -141,6 +142,11 @@ namespace PhoneDirectoryWPF.UI
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

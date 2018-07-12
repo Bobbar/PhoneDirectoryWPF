@@ -36,7 +36,7 @@
                             <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
                             <GridViewColumn Header="Department" Width="200" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
                         </GridView>
-                       
+
                     </ListView.View>
                     <ListView.ContextMenu>
                         <ContextMenu HasDropShadow="True">
