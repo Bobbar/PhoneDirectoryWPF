@@ -99,6 +99,7 @@
     <Compile Include="Security\InvalidAccessException.cs" />
     <Compile Include="Security\SecurityFunctions.cs" />
     <Compile Include="Security\SecurityGroups.cs" />
+    <Compile Include="UI\ExtensionDeletedEventArgs.cs" />
     <Compile Include="UI\PopupDialog.xaml.cs">
       <DependentUpon>PopupDialog.xaml</DependentUpon>
     </Compile>

@@ -20,6 +20,8 @@ namespace PhoneDirectoryWPF.UI
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public event EventHandler<ExtensionDeletedEventArgs> ExtensionDeleted;
+
         private bool inputEnabled = true;
 
         public bool InputEnabled
@@ -39,6 +41,11 @@ namespace PhoneDirectoryWPF.UI
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void OnExtensionDeleted(Extension extension)
+        {
+            ExtensionDeleted?.Invoke(this, new ExtensionDeletedEventArgs(extension));
         }
 
         public EditWindow()
@@ -137,6 +144,7 @@ namespace PhoneDirectoryWPF.UI
             }
 
             await UserPrompts.PopupDialog(string.Format("Extension '{0}' deleted!", extensionContext.Number), "Success", DialogButtons.Default);
+            OnExtensionDeleted(extensionContext);
             ((Extension)DataContext).Dispose();
             extensionContext.Dispose();
             this.Close();

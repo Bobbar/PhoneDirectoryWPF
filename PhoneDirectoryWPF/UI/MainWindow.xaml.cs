@@ -9,8 +9,8 @@ using System.Data;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace PhoneDirectoryWPF.UI
 {
@@ -39,8 +39,6 @@ namespace PhoneDirectoryWPF.UI
 
             foreach (Control ctl in controls)
             {
-
-
                 if (ctl.Tag != null && ctl.Tag is DBControlAttribute)
                 {
                     var dbAttr = (DBControlAttribute)ctl.Tag;
@@ -97,22 +95,6 @@ namespace PhoneDirectoryWPF.UI
             });
         }
 
-        private void EditExtension(Extension extension)
-        {
-            SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
-
-            var editWindow = new EditWindow(extension);
-            editWindow.ShowDialog();
-        }
-
-        private void NewExtension()
-        {
-            SecurityFunctions.CheckForAccess(SecurityGroups.Add);
-
-            var editWindow = new EditWindow();
-            editWindow.Show();
-        }
-
         private void PopulateResults(List<Extension> results)
         {
             if (!Dispatcher.CheckAccess())
@@ -125,6 +107,35 @@ namespace PhoneDirectoryWPF.UI
                 resultListView.Items.Clear();
                 resultListView.ItemsSource = results;
             }
+        }
+
+        private void EditExtension(Extension extension)
+        {
+            SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
+
+            var editWindow = new EditWindow(extension);
+            editWindow.ExtensionDeleted -= EditWindow_ExtensionDeleted;
+            editWindow.ExtensionDeleted += EditWindow_ExtensionDeleted;
+            editWindow.ShowDialog();
+        }
+
+        private void EditWindow_ExtensionDeleted(object sender, ExtensionDeletedEventArgs e)
+        {
+            var source = (List<Extension>)resultListView.ItemsSource;
+
+            if (source.Contains(e.Extension))
+                source.Remove(e.Extension);
+
+            var view = CollectionViewSource.GetDefaultView(source);
+            view.Refresh();
+        }
+
+        private void NewExtension()
+        {
+            SecurityFunctions.CheckForAccess(SecurityGroups.Add);
+
+            var editWindow = new EditWindow();
+            editWindow.Show();
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
