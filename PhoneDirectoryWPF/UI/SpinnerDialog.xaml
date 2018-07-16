@@ -20,7 +20,7 @@
     </UserControl.Resources>
 
     <Grid Name="SpinnerContent">
-        <GroupBox x:Name="groupBox" Header="Please wait" Margin="10" FontSize="16">
+        <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Please wait" Margin="10" FontSize="16">
             <Grid Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="79*"/>
