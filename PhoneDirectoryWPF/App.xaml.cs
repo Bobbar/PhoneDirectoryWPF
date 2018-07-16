@@ -2,6 +2,8 @@
 using PhoneDirectoryWPF.Security;
 using ShowMeTheXAML;
 using System.Windows;
+using PhoneDirectoryWPF.Data.Functions;
+using PhoneDirectoryWPF.Data;
 
 namespace PhoneDirectoryWPF
 {
@@ -12,18 +14,13 @@ namespace PhoneDirectoryWPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Init();
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+
             XamlDisplay.Init();
             base.OnStartup(e);
         }
 
-        private void Init()
-        {
-            DispatcherUnhandledException += App_DispatcherUnhandledException;
-            SecurityFunctions.PopulateUserAccess();
-            SecurityFunctions.PopulateAccessGroups();
-        }
-
+       
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             if (e.Exception is InvalidAccessException)

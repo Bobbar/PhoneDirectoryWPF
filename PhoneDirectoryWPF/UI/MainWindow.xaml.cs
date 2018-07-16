@@ -1,6 +1,7 @@
 ﻿using Database.Data;
 using PhoneDirectoryWPF.Containers;
 using PhoneDirectoryWPF.Data;
+using PhoneDirectoryWPF.Data.Functions;
 using PhoneDirectoryWPF.Helpers;
 using PhoneDirectoryWPF.Security;
 using System;
@@ -23,6 +24,41 @@ namespace PhoneDirectoryWPF.UI
         {
             InitializeComponent();
             InitDBControls();
+        }
+
+        private async void InitConnection()
+        {
+            bool canReach = false;
+            bool cacheVerified = false;
+
+            var spinner = await UserPrompts.SpinnerPopup();
+            spinner.StatusText = "Connecting to database...";
+
+            await Task.Run(() =>
+            {
+                canReach = DBFactory.CanReachServer();
+
+                spinner.StatusText = "Checking cache...";
+
+                cacheVerified = CacheFunctions.VerifyCache();
+
+                if (canReach)
+                {
+                    spinner.StatusText = "Loading data...";
+
+                    SecurityFunctions.PopulateUserAccess();
+                    SecurityFunctions.PopulateAccessGroups();
+                    CacheFunctions.RefreshCache();
+                }
+            });
+
+            spinner.Hide();
+
+            if (!cacheVerified && !canReach)
+            {
+                await UserPrompts.PopupMessage("Cannot connect to the database and the local cache was not verified.", "Cannot Run");
+                Application.Current.Shutdown();
+            }
         }
 
         private void InitDBControls()
@@ -178,6 +214,11 @@ namespace PhoneDirectoryWPF.UI
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             EditExtension((Extension)resultListView.SelectedItem);
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            InitConnection();
         }
     }
 }

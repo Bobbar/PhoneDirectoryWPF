@@ -8,14 +8,14 @@ namespace PhoneDirectoryWPF.Helpers
 {
     public static class UserPrompts
     {
-        public static void PopupMessage(string message, string header)
+        public async static Task PopupMessage(string message, string header)
         {
             var popHost = FindActiveDialogHost();
 
             if (popHost == null)
                 return;
 
-            DialogHost.Show(new PopupDialog(message, header), popHost.Identifier);
+            await DialogHost.Show(new PopupDialog(message, header), popHost.Identifier);
         }
 
         public async static Task<object> PopupDialog(string message, string header, DialogButtons buttons)
@@ -27,6 +27,25 @@ namespace PhoneDirectoryWPF.Helpers
 
             return await DialogHost.Show(new PopupDialog(message, header, buttons), popHost.Identifier);
         }
+
+        public async static Task<SpinnerDialog> SpinnerPopup()
+        {
+            var popHost = FindActiveDialogHost();
+
+            if (popHost == null)
+                return null;
+
+            var spinner = new SpinnerDialog(popHost);
+
+            DialogHost.Show(spinner, popHost.Identifier);
+
+            return spinner;
+        }
+
+        //private static void DialogOpened(object sender, DialogOpenedEventArgs eventArgs)
+        //{
+        //    //eventArgs.Se
+        //}
 
         private static DialogHost FindActiveDialogHost()
         {

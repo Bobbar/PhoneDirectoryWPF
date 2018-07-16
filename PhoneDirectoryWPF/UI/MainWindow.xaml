@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         mc:Ignorable="d"
-        Title="Phone Directory" Height="643" Width="767" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+        Title="Phone Directory" Height="643" Width="767" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
         <Grid>
             <GroupBox x:Name="groupBox" Header="Search" Height="166.45" Margin="10,10,10,0" VerticalAlignment="Top">
