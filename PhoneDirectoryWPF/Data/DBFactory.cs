@@ -14,6 +14,18 @@ namespace PhoneDirectoryWPF.Data
         private static string serverIp = "10.10.0.89";
         private static string sqlitePath = Directory.GetCurrentDirectory() + @"\cache\";
 
+        public static IDatabase GetDatabase()
+        {
+            if (CacheMode)
+            {
+                return GetSqliteDatabase();
+            }
+            else
+            {
+                return GetMySqlDatabase();
+            }
+        }
+
         public static IDatabase GetMySqlDatabase()
         {
             return new MySqlDatabase(serverIp, "phone_dir_user", "Ph0n3D1rU53rP455", "phone_test_db");

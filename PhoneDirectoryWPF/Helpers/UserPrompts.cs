@@ -42,11 +42,6 @@ namespace PhoneDirectoryWPF.Helpers
             return spinner;
         }
 
-        //private static void DialogOpened(object sender, DialogOpenedEventArgs eventArgs)
-        //{
-        //    //eventArgs.Se
-        //}
-
         private static DialogHost FindActiveDialogHost()
         {
             // We find the active window then search it for a dialoghost to display the popup.

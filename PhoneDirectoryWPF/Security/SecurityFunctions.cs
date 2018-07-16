@@ -19,7 +19,7 @@ namespace PhoneDirectoryWPF.Security
             {
                 localUsername = Environment.UserName;
 
-                using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectUserByName(localUsername)))
+                using (var results = DBFactory.GetDatabase().DataTableFromQueryString(Queries.SelectUserByName(localUsername)))
                 {
                     if (results.Rows.Count > 0)
                     {
@@ -45,7 +45,7 @@ namespace PhoneDirectoryWPF.Security
 
         public static void PopulateAccessGroups()
         {
-            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectSecurityTable))
+            using (var results = DBFactory.GetDatabase().DataTableFromQueryString(Queries.SelectSecurityTable))
             {
                 foreach (DataRow row in results.Rows)
                 {
@@ -94,7 +94,7 @@ namespace PhoneDirectoryWPF.Security
                 {
                     // We know that the current access level contains this group bit.
                     // Now we need to see if the group name matches the specified value.
-                    if (group.Name == groupName)
+                    if (group.Name == groupName & !DBFactory.CacheMode)
                     {
                         return true;
                     }
@@ -114,7 +114,17 @@ namespace PhoneDirectoryWPF.Security
         {
             if (!CanAccess(securityGroup))
             {
-                string errMessage = "You do not have the required access rights for this function. Must have access to '" + securityGroup + "'.";
+                string errMessage;
+
+                if (DBFactory.CacheMode)
+                {
+                    errMessage = "Extensions cannot be modified while in cached mode.";
+                }
+                else
+                {
+                    errMessage = "You do not have the required access rights for this function. Must have access to '" + securityGroup + "'.";
+                }
+
                 throw new InvalidAccessException(errMessage);
             }
         }

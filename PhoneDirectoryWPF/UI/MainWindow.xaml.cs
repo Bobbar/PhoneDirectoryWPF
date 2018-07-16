@@ -45,11 +45,14 @@ namespace PhoneDirectoryWPF.UI
                 if (canReach)
                 {
                     spinner.StatusText = "Loading data...";
-
-                    SecurityFunctions.PopulateUserAccess();
-                    SecurityFunctions.PopulateAccessGroups();
+                                      
                     CacheFunctions.RefreshCache();
                 }
+
+
+                SecurityFunctions.PopulateUserAccess();
+                SecurityFunctions.PopulateAccessGroups();
+
             });
 
             spinner.Hide();
@@ -117,7 +120,7 @@ namespace PhoneDirectoryWPF.UI
 
             await Task.Run(() =>
             {
-                using (var results = DBFactory.GetMySqlDatabase().DataTableFromParameters(query, queryParams))
+                using (var results = DBFactory.GetDatabase().DataTableFromParameters(query, queryParams))
                 {
                     var resultList = new List<Extension>();
 
