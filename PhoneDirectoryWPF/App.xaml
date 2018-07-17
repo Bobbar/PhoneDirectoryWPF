@@ -11,10 +11,11 @@
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Yellow.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.LightBlue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="GlobalMaterialStyle">
+                <Setter Property="Window.Background" Value="{DynamicResource MaterialDesignPaper}"/>
                 <Setter Property="TextElement.Foreground" Value="{StaticResource MaterialDesignBody}"/>
                 <Setter Property="TextElement.FontWeight" Value="Regular"/>
                 <Setter Property="TextElement.FontSize" Value="13"/>
@@ -24,6 +25,8 @@
                 <Setter Property="Control.Foreground" Value="{StaticResource MaterialDesignLightBackground}"/>
                 <Setter Property="Control.FontFamily" Value="{StaticResource MaterialDesignFont}"/>
             </Style>
+
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}"></Style>
         
         </ResourceDictionary>
 

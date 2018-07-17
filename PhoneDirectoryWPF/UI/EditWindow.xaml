@@ -17,7 +17,7 @@
 
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHost">
         <Grid>
-            <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
+            <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
                 <Grid>
 
                     <Grid.RowDefinitions>

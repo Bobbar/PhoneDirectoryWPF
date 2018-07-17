@@ -8,9 +8,10 @@
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         mc:Ignorable="d"
         Title="Phone Directory" Height="643" Width="767" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
+    
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
         <Grid>
-            <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Search" Height="166.45" Margin="10,10,10,0" VerticalAlignment="Top">
+            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Search" Height="166.45" Margin="10,10,10,0" VerticalAlignment="Top">
                 <Grid Margin="4,5.607,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="49*"/>
@@ -28,7 +29,7 @@
                     <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click"/>
                 </Grid>
             </GroupBox>
-            <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox1" Header="Results" Margin="10,181,10,10">
+            <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox1" Header="Results" Margin="10,181,10,10">
                 <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick">
                     <ListView.View>
                         <GridView x:Name="resultGridView" AllowsColumnReorder="False">
