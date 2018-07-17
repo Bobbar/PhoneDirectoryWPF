@@ -24,6 +24,35 @@ namespace PhoneDirectoryWPF.UI
         {
             InitializeComponent();
             InitDBControls();
+            WatchDogInstance.WatchDog.CacheStatusChanged += WatchDog_CacheStatusChanged;
+        }
+
+        private void WatchDog_CacheStatusChanged(object sender, bool e)
+        {
+            DBFactory.CacheMode = e;
+
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(new Action(() => SetCacheStatus(e)));
+            }
+            else
+            {
+                SetCacheStatus(e);
+            }
+        }
+
+        private void SetCacheStatus(bool cacheMode)
+        {
+            if (cacheMode)
+            {
+                ConnectStatusIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LanDisconnect;
+                ConnectStatusText.Text = "Cached Mode";
+            }
+            else
+            {
+                ConnectStatusIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LanConnect;
+                ConnectStatusText.Text = "Connected";
+            }
         }
 
         private async void InitConnection()
@@ -45,7 +74,7 @@ namespace PhoneDirectoryWPF.UI
                 if (canReach)
                 {
                     spinner.StatusText = "Loading data...";
-                                      
+
                     CacheFunctions.RefreshCache();
                 }
 
@@ -61,6 +90,14 @@ namespace PhoneDirectoryWPF.UI
             {
                 await UserPrompts.PopupMessage("Cannot connect to the database and the local cache was not verified.", "Cannot Run");
                 Application.Current.Shutdown();
+            }
+            else if (cacheVerified && !canReach)
+            {
+                WatchDogInstance.WatchDog.Start(true);
+            }
+            else
+            {
+                WatchDogInstance.WatchDog.Start(false);
             }
         }
 

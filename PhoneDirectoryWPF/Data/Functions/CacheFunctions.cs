@@ -13,6 +13,11 @@ namespace PhoneDirectoryWPF.Data.Functions
         {
             await Task.Run(() =>
             {
+                if (refreshRunning)
+                    return;
+
+                refreshRunning = true;
+
                 DropTables();
 
                 using (var trans = DBFactory.GetSqliteDatabase().StartTransaction())
@@ -29,6 +34,10 @@ namespace PhoneDirectoryWPF.Data.Functions
                     catch
                     {
                         trans.Rollback();
+                    }
+                    finally
+                    {
+                        refreshRunning = false;
                     }
                 }
             });

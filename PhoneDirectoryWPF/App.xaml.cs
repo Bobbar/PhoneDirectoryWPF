@@ -29,6 +29,18 @@ namespace PhoneDirectoryWPF
                 UserPrompts.PopupMessage(iae.Message, "Access Denied");
                 e.Handled = true;
             }
+            else if (e.Exception is MySql.Data.MySqlClient.MySqlException)
+            {
+                var mse = (MySql.Data.MySqlClient.MySqlException)e.Exception;
+
+                switch ((MySql.Data.MySqlClient.MySqlErrorCode)mse.Number)
+                {
+                    case MySql.Data.MySqlClient.MySqlErrorCode.UnableToConnectToHost:
+                        DBFactory.CacheMode = true;
+                        e.Handled = true;
+                        break;
+                }
+            }
             else
             {
                 UserPrompts.PopupMessage(e.Exception.ToString(), "UNHANDLED ERROR!");
@@ -38,7 +50,7 @@ namespace PhoneDirectoryWPF
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-
+            WatchDogInstance.WatchDog.Dispose();
         }
     }
 }

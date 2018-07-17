@@ -97,8 +97,9 @@
     <Compile Include="Containers\LocalUser.cs" />
     <Compile Include="Data\Classes\CacheTable.cs" />
     <Compile Include="Data\Functions\CacheFunctions.cs" />
-    <Compile Include="Data\Functions\ConnectionWatchdog.cs" />
+    <Compile Include="Data\Functions\WatchDog\ConnectionWatchdog.cs" />
     <Compile Include="Data\Functions\SqliteFunctions.cs" />
+    <Compile Include="Data\Functions\WatchDog\WatchDogInstance.cs" />
     <Compile Include="Helpers\UserPrompts.cs" />
     <Compile Include="Security\InvalidAccessException.cs" />
     <Compile Include="Security\SecurityFunctions.cs" />

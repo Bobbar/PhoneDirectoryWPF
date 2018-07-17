@@ -7,13 +7,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         mc:Ignorable="d"
-        Title="Phone Directory" Height="737" Width="734" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
+        Title="Phone Directory" Height="722" Width="749" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
 
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="41"/>
+                <RowDefinition Height="26"/>
             </Grid.RowDefinitions>
             <Grid Margin="0,0" Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="142*"/>
                             <ColumnDefinition Width="292*"/>
-                            <ColumnDefinition Width="261*"/>
+                            <ColumnDefinition Width="261"/>
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="extensionTextBox_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="userTextBox_KeyUp"/>
@@ -56,17 +56,17 @@
                 </GroupBox>
             </Grid>
             <StatusBar Background="{StaticResource MaterialDesignDarkBackground}" Foreground="{StaticResource MaterialDesignLightBackground}" Grid.Row="1">
-                <StatusBarItem Width="150" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalContentAlignment="Top">
+                <StatusBarItem HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
                     <!--<TextBlock HorizontalAlignment="Right" Margin="0,0,10,0">Cache Mode</TextBlock>-->
                     <!--<Button Style="{StaticResource MaterialDesignFlatButton}" FontSize="10" HorizontalAlignment="Right" Height="Auto">-->
-                    <!--
-                    <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,10,0">
-                        <materialDesign:PackIcon Kind="LanConnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
-                        <TextBlock FontSize="13" Text="Connected" Margin="4,0,0,0"></TextBlock>
+                    
+                    <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,10,0" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Name="ConnectStatusIcon" Kind="LanConnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
+                        <TextBlock Name="ConnectStatusText" FontSize="13" Text="Connected" Margin="4,0,0,0"></TextBlock>
                     </StackPanel>
-                    -->
+                    
                     <!--</Button>-->
-                    <materialDesign:Chip Content="Connected" Icon="{materialDesign:PackIcon Kind=LanConnect}" FontSize="11" Margin="0,0,5,0"/>
+                    <!--<materialDesign:Chip Content="Connected" Icon="{materialDesign:PackIcon Kind=LanConnect}" FontSize="11" Margin="0,0,5,0"/>-->
 
                 </StatusBarItem>
             </StatusBar>
