@@ -14,19 +14,13 @@ namespace PhoneDirectoryWPF.Data.Functions
 
         public static void AddTableToCacheDB(DataTable table, string primaryKeyColumn, DbTransaction trans = null)
         {
+            // Get the create statement string.
             var createStatement = BuildCreateStatement(table, primaryKeyColumn);
+            
+            // Execute the statement to create the table.
+            DBFactory.GetSqliteDatabase().ExecuteNonQuery(createStatement, trans);
 
-            try
-            {
-
-                DBFactory.GetSqliteDatabase().ExecuteNonQuery(createStatement, trans);
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-
+            // Populate the table with the data.
             DBFactory.GetSqliteDatabase().UpdateTable("SELECT * FROM " + table.TableName, CopyTable(table), trans);
         }
 
@@ -50,9 +44,6 @@ namespace PhoneDirectoryWPF.Data.Functions
 
         private static string BuildCreateStatement(DataTable table, string primaryKeyColumn)
         {
-            // List for primary keys.
-            var keys = new List<string>();
-
             string statement = "CREATE TABLE ";
 
             // Add the table name from the results parameter.

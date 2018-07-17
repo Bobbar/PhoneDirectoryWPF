@@ -39,7 +39,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Phone.ico</ApplicationIcon>
+    <ApplicationIcon>PhoneIcon2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>PhoneDirectoryWPF.App</StartupObject>
@@ -97,6 +97,7 @@
     <Compile Include="Containers\LocalUser.cs" />
     <Compile Include="Data\Classes\CacheTable.cs" />
     <Compile Include="Data\Functions\CacheFunctions.cs" />
+    <Compile Include="Data\Functions\ConnectionWatchdog.cs" />
     <Compile Include="Data\Functions\SqliteFunctions.cs" />
     <Compile Include="Helpers\UserPrompts.cs" />
     <Compile Include="Security\InvalidAccessException.cs" />
@@ -176,6 +177,7 @@
     <None Include="Resources\Phone.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="PhoneIcon2.ico" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

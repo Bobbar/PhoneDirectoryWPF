@@ -35,5 +35,10 @@ namespace PhoneDirectoryWPF
                 e.Handled = false;
             }
         }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+
+        }
     }
 }

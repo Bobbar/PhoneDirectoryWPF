@@ -7,45 +7,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         mc:Ignorable="d"
-        Title="Phone Directory" Height="643" Width="767" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
-    
+        Title="Phone Directory" Height="737" Width="734" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
+
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
         <Grid>
-            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Search" Height="166.45" Margin="10,10,10,0" VerticalAlignment="Top">
-                <Grid Margin="4,5.607,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="49*"/>
-                        <RowDefinition Height="58*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="142*"/>
-                        <ColumnDefinition Width="292*"/>
-                        <ColumnDefinition Width="261*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="extensionTextBox_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                    <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="userTextBox_KeyUp"/>
-                    <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="departmentTextBox_KeyUp"/>
-                    <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click"/>
-                    <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click"/>
-                </Grid>
-            </GroupBox>
-            <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox1" Header="Results" Margin="10,181,10,10">
-                <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick">
-                    <ListView.View>
-                        <GridView x:Name="resultGridView" AllowsColumnReorder="False">
-                            <GridViewColumn Header="Extension" Width="100" DisplayMemberBinding="{Binding Number, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
-                            <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
-                            <GridViewColumn Header="Department" Width="200" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
-                        </GridView>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="41"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="0,0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="95*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Search" Height="166" Margin="10,10,10,0" VerticalAlignment="Top">
+                    <Grid Margin="4,5.607,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="49*"/>
+                            <RowDefinition Height="58*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="142*"/>
+                            <ColumnDefinition Width="292*"/>
+                            <ColumnDefinition Width="261*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="extensionTextBox_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="userTextBox_KeyUp"/>
+                        <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="departmentTextBox_KeyUp"/>
+                        <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click"/>
+                        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox1" Header="Results" Margin="10,181,10,5">
+                    <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView x:Name="resultGridView" AllowsColumnReorder="False">
+                                <GridViewColumn Header="Extension" Width="100" DisplayMemberBinding="{Binding Number, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                                <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                                <GridViewColumn Header="Department" Width="200" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                            </GridView>
 
-                    </ListView.View>
-                    <ListView.ContextMenu>
-                        <ContextMenu HasDropShadow="True">
-                            <MenuItem Header="Edit" Icon="{materialDesign:PackIcon Kind=Pencil}" Click="MenuItem_Click"/>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
-                </ListView>
-            </GroupBox>
+                        </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu HasDropShadow="True">
+                                <MenuItem Header="Edit" Icon="{materialDesign:PackIcon Kind=Pencil}" Click="MenuItem_Click"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                </GroupBox>
+            </Grid>
+            <StatusBar Background="{StaticResource MaterialDesignDarkBackground}" Foreground="{StaticResource MaterialDesignLightBackground}" Grid.Row="1">
+                <StatusBarItem Width="150" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalContentAlignment="Top">
+                    <!--<TextBlock HorizontalAlignment="Right" Margin="0,0,10,0">Cache Mode</TextBlock>-->
+                    <!--<Button Style="{StaticResource MaterialDesignFlatButton}" FontSize="10" HorizontalAlignment="Right" Height="Auto">-->
+                    <!--
+                    <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,10,0">
+                        <materialDesign:PackIcon Kind="LanConnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
+                        <TextBlock FontSize="13" Text="Connected" Margin="4,0,0,0"></TextBlock>
+                    </StackPanel>
+                    -->
+                    <!--</Button>-->
+                    <materialDesign:Chip Content="Connected" Icon="{materialDesign:PackIcon Kind=LanConnect}" FontSize="11" Margin="0,0,5,0"/>
+
+                </StatusBarItem>
+            </StatusBar>
         </Grid>
     </materialDesign:DialogHost>
 </Window>
