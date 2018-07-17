@@ -9,16 +9,6 @@
              Name="MySpinnerDialog"
              mc:Ignorable="d" d:DesignWidth="300" Height="215">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
-
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid Name="SpinnerContent">
         <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Please wait" Margin="10" FontSize="16">
             <Grid Margin="0">
@@ -27,8 +17,8 @@
                     <RowDefinition Height="40*"/>
                     <RowDefinition Height="21*"/>
                 </Grid.RowDefinitions>
-                <ProgressBar Grid.Row="0" Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center" IsIndeterminate="True" Value="0" Margin="106,0" VerticalAlignment="Bottom" Width="50" Height="50"/>
-                <TextBox IsReadOnly="True" Text="{Binding StatusText, ElementName=MySpinnerDialog, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, ValidatesOnNotifyDataErrors=False}" Grid.Row="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Height="28" Margin="5,0" FontSize="14"/>
+                <ProgressBar Grid.Row="0" Style="{StaticResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center" IsIndeterminate="True" Value="0" Margin="106,0" VerticalAlignment="Bottom" Width="50" Height="50"/>
+                <TextBox IsReadOnly="True" Text="{Binding StatusText, ElementName=MySpinnerDialog, Mode=OneWay, NotifyOnSourceUpdated=True}" Grid.Row="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Height="28" Margin="5,0" FontSize="14"/>
             </Grid>
         </GroupBox>
 
