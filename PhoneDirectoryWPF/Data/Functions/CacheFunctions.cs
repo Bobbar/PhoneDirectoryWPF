@@ -18,12 +18,13 @@ namespace PhoneDirectoryWPF.Data.Functions
 
                 refreshRunning = true;
 
-                DropTables();
-
                 using (var trans = DBFactory.GetSqliteDatabase().StartTransaction())
+                using (trans.Connection)
                 {
                     try
                     {
+                        DropTables(trans);
+
                         foreach (var table in TablesToCache())
                         {
                             CacheDBTable(table.TableName, table.PrimaryKey, trans);
@@ -81,24 +82,14 @@ namespace PhoneDirectoryWPF.Data.Functions
             }
         }
 
-        private static void DropTables()
+        private static void DropTables(DbTransaction trans)
         {
-            using (var trans = DBFactory.GetSqliteDatabase().StartTransaction())
-            using (var conn = trans.Connection)
             using (var results = GetSqliteTables())
             {
-                try
+                foreach (DataRow row in results.Rows)
                 {
-                    foreach (DataRow row in results.Rows)
-                    {
-                        string dropQuery = "DROP TABLE " + row["name"];
-                        DBFactory.GetSqliteDatabase().ExecuteNonQuery(dropQuery, trans);
-                    }
-                    trans.Commit();
-                }
-                catch
-                {
-                    trans.Rollback();
+                    string dropQuery = "DROP TABLE " + row["name"];
+                    DBFactory.GetSqliteDatabase().ExecuteNonQuery(dropQuery, trans);
                 }
             }
         }

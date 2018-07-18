@@ -118,7 +118,7 @@ namespace PhoneDirectoryWPF.Security
 
                 if (DBFactory.CacheMode)
                 {
-                    errMessage = "Extensions cannot be modified while in cached mode.";
+                    errMessage = "Extensions cannot be modified while in offline mode.";
                 }
                 else
                 {

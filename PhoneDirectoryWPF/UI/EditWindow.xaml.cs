@@ -4,8 +4,8 @@ using PhoneDirectoryWPF.Helpers;
 using PhoneDirectoryWPF.Security;
 using System;
 using System.ComponentModel;
-using System.Windows;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PhoneDirectoryWPF.UI
 {
@@ -79,12 +79,12 @@ namespace PhoneDirectoryWPF.UI
             SetContextFromDatabase(extension);
         }
 
-        private async Task SetContextFromDatabase(Extension extension)
+        private async void SetContextFromDatabase(Extension extension)
         {
             this.DataContext = await extension.FromDatabaseAsync();
         }
 
-        private async Task UpdateExtension()
+        private async void UpdateExtension()
         {
             // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
@@ -99,7 +99,6 @@ namespace PhoneDirectoryWPF.UI
                 }
                 catch (MySql.Data.MySqlClient.MySqlException ex)
                 {
-                    // spinner.Dispose();
                     HandleSqlException(ex);
 
                     Console.WriteLine(ex.Number + "  " + ex.ToString());
@@ -113,7 +112,7 @@ namespace PhoneDirectoryWPF.UI
             UserPrompts.PopupMessage(this, "Extension updated.", "Success!");
         }
 
-        private async Task AddExtension()
+        private async void AddExtension()
         {
             // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Add);
@@ -214,7 +213,7 @@ namespace PhoneDirectoryWPF.UI
         {
             DeleteExtension();
         }
-        
+
         private void EditWindow_ContentRendered(object sender, EventArgs e)
         {
             // If content is rendered before the data context has been populated
@@ -235,7 +234,6 @@ namespace PhoneDirectoryWPF.UI
                 FieldGroupBox.IsEnabled = true;
                 WaitingSpinner.Visibility = Visibility.Hidden;
             }
-
         }
     }
 }

@@ -10,6 +10,8 @@ namespace PhoneDirectoryWPF.Data.Functions
         private Task watchdogTask;
         private bool isInCacheMode = false;
         private const int watchdogInterval = 5000;
+        private const int cyclesTillRefresh = 30;
+        private int cycles = 0;
 
         private bool IsInCacheMode
         {
@@ -66,6 +68,15 @@ namespace PhoneDirectoryWPF.Data.Functions
                 {
                     IsInCacheMode = true;
                 }
+
+                // Periodically refresh the sqlite cache.
+                if (cycles >= cyclesTillRefresh)
+                {
+                    cycles = 0;
+                    CacheFunctions.RefreshCache();
+                }
+
+                cycles++;
 
                 Task.Delay(watchdogInterval).Wait();
             }

@@ -46,7 +46,7 @@ namespace PhoneDirectoryWPF.UI
             if (cacheMode)
             {
                 ConnectStatusIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LanDisconnect;
-                ConnectStatusText.Text = "Cached Mode";
+                ConnectStatusText.Text = "Offline Mode";
             }
             else
             {
