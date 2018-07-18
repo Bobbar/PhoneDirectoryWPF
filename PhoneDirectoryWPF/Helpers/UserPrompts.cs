@@ -3,6 +3,8 @@ using PhoneDirectoryWPF.UI;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System;
+using System.Collections.Generic;
 
 namespace PhoneDirectoryWPF.Helpers
 {
@@ -15,31 +17,23 @@ namespace PhoneDirectoryWPF.Helpers
             if (popHost == null)
                 return;
 
+            DialogHost.CloseDialogCommand.Execute(new object(), null);
+
             await DialogHost.Show(new PopupDialog(message, header), popHost.Identifier);
         }
 
-        public async static Task<object> PopupDialog(string message, string header, DialogButtons buttons)
+        public async static Task PopupMessage(Window window, string message, string header)
         {
-            var popHost = FindActiveDialogHost();
+            DialogHost.CloseDialogCommand.Execute(new object(), null);
 
-            if (popHost == null)
-                return null;
-
-            return await DialogHost.Show(new PopupDialog(message, header, buttons), popHost.Identifier);
+            await DialogHostEx.ShowDialog(window, new PopupDialog(message, header));
         }
 
-        public async static Task<SpinnerDialog> SpinnerPopup()
+        public async static Task<object> PopupDialog(Window window, string message, string header, DialogButtons buttons)
         {
-            var popHost = FindActiveDialogHost();
+            DialogHost.CloseDialogCommand.Execute(new object(), null);
 
-            if (popHost == null)
-                return null;
-
-            var spinner = new SpinnerDialog(popHost);
-
-            DialogHost.Show(spinner, popHost.Identifier);
-
-            return spinner;
+            return await DialogHostEx.ShowDialog(window, new PopupDialog(message, header, buttons));
         }
 
         private static DialogHost FindActiveDialogHost()
@@ -56,8 +50,9 @@ namespace PhoneDirectoryWPF.Helpers
             if (popHostControl == null)
                 return null;
 
-            // Cast the dialog host and return it.
-            return (DialogHost)popHostControl;
+            var popHostDialog = (DialogHost)popHostControl;
+
+            return popHostDialog;
         }
     }
 }

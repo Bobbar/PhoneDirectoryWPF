@@ -9,7 +9,7 @@
         Style="{StaticResource GlobalMaterialStyle}"
         mc:Ignorable="d"
         Name="MyEditWindow"
-        Title="Edit" Height="367" Width="1070.9" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
+        Title="Edit" Height="367" Width="1070.9" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" ContentRendered="EditWindow_ContentRendered" DataContextChanged="EditWindow_DataContextChanged">
 
     <Window.DataContext>
         <Containers:Extension />
@@ -17,7 +17,7 @@
 
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHost">
         <Grid>
-            <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
+            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
                 <Grid>
 
                     <Grid.RowDefinitions>
@@ -33,6 +33,7 @@
                         <ColumnDefinition Width="285*" />
                         <ColumnDefinition Width="262*" />
                     </Grid.ColumnDefinitions>
+                    <ProgressBar x:Name="WaitingSpinner" Visibility="Hidden" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Width="50" Height="50" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Center"/>
                     <TextBox x:Name="idTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Margin="10,0,10,7" TextWrapping="Wrap" Grid.Column="0" IsReadOnly="True" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="53" VerticalAlignment="Bottom" />
                     <TextBox x:Name="extensionTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=Default}" />
                     <TextBox x:Name="firstNameTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="2" materialDesign:HintAssist.Hint="First Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding FirstName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -44,9 +45,9 @@
                     </Grid>
                     <Grid Grid.Row="3" Grid.ColumnSpan="3" Margin="46,0,214,0" Height="106" VerticalAlignment="Top">
                         <StackPanel HorizontalAlignment="Center" Margin="0"  VerticalAlignment="Center" Width="Auto" Height="Auto">
-                            <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="saveButton_Click" Margin="0,0,0,5" />
+                            <Button x:Name="saveButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Save" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="saveButton_Click" Margin="0,0,0,5" />
                             <Button x:Name="addButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Add" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="addButton_Click" Margin="0" />
-                            <Button x:Name="deleteButton" Content="Delete" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="deleteButton_Click" />
+                            <Button x:Name="deleteButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Delete" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="deleteButton_Click" />
                         </StackPanel>
                     </Grid>
 

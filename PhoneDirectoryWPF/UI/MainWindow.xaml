@@ -57,17 +57,10 @@
             </Grid>
             <StatusBar Background="{StaticResource MaterialDesignDarkBackground}" Foreground="{StaticResource MaterialDesignLightBackground}" Grid.Row="1">
                 <StatusBarItem HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
-                    <!--<TextBlock HorizontalAlignment="Right" Margin="0,0,10,0">Cache Mode</TextBlock>-->
-                    <!--<Button Style="{StaticResource MaterialDesignFlatButton}" FontSize="10" HorizontalAlignment="Right" Height="Auto">-->
-                    
                     <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,10,0" HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Name="ConnectStatusIcon" Kind="LanConnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
-                        <TextBlock Name="ConnectStatusText" FontSize="13" Text="Connected" Margin="4,0,0,0"></TextBlock>
+                        <materialDesign:PackIcon Name="ConnectStatusIcon" Kind="LanDisconnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
+                        <TextBlock Name="ConnectStatusText" FontSize="13" Text="Disconnected" Margin="4,0,0,0"></TextBlock>
                     </StackPanel>
-                    
-                    <!--</Button>-->
-                    <!--<materialDesign:Chip Content="Connected" Icon="{materialDesign:PackIcon Kind=LanConnect}" FontSize="11" Margin="0,0,5,0"/>-->
-
                 </StatusBarItem>
             </StatusBar>
         </Grid>

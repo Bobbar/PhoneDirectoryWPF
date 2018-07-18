@@ -4,6 +4,7 @@ using ShowMeTheXAML;
 using System.Windows;
 using PhoneDirectoryWPF.Data.Functions;
 using PhoneDirectoryWPF.Data;
+using System;
 
 namespace PhoneDirectoryWPF
 {

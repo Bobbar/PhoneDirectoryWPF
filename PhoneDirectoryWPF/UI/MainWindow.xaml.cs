@@ -60,35 +60,31 @@ namespace PhoneDirectoryWPF.UI
             bool canReach = false;
             bool cacheVerified = false;
 
-            var spinner = await UserPrompts.SpinnerPopup();
-            spinner.StatusText = "Connecting to database...";
-
-            await Task.Run(() =>
+            using (var spinner = new WaitSpinner(this, "Connecting to database..."))
             {
-                canReach = DBFactory.CanReachServer();
-
-                spinner.StatusText = "Checking cache...";
-
-                cacheVerified = CacheFunctions.VerifyCache();
-
-                if (canReach)
+                await Task.Run(() =>
                 {
-                    spinner.StatusText = "Loading data...";
+                    canReach = DBFactory.CanReachServer();
 
-                    CacheFunctions.RefreshCache();
-                }
+                    spinner.StatusText = "Checking cache...";
 
+                    cacheVerified = CacheFunctions.VerifyCache();
 
-                SecurityFunctions.PopulateUserAccess();
-                SecurityFunctions.PopulateAccessGroups();
+                    if (canReach)
+                    {
+                        spinner.StatusText = "Loading data...";
 
-            });
+                        CacheFunctions.RefreshCache();
+                    }
 
-            spinner.Hide();
-
+                    SecurityFunctions.PopulateUserAccess();
+                    SecurityFunctions.PopulateAccessGroups();
+                });
+            }
+            
             if (!cacheVerified && !canReach)
             {
-                await UserPrompts.PopupMessage("Cannot connect to the database and the local cache was not verified.", "Cannot Run");
+                await UserPrompts.PopupMessage(this, "Cannot connect to the database and the local cache was not verified.", "Cannot Run");
                 Application.Current.Shutdown();
             }
             else if (cacheVerified && !canReach)

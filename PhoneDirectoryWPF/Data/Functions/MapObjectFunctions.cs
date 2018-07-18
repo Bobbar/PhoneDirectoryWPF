@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace PhoneDirectoryWPF.Data.Functions
 {
@@ -22,6 +23,19 @@ namespace PhoneDirectoryWPF.Data.Functions
             }
         }
 
+        public static async Task<int> InsertAsync(this DataMapObject mapObject)
+        {
+            var selectQuery = "SELECT * FROM " + mapObject.TableName + " LIMIT 0";
+
+            using (var results = await DBFactory.GetMySqlDatabase().DataTableFromQueryStringAsync(selectQuery))
+            {
+                results.Rows.Add();
+                PopulateRowFromObject(results.Rows[0], mapObject);
+
+                return await DBFactory.GetMySqlDatabase().UpdateTableAsync(selectQuery, results);
+            }
+        }
+
         public static int Update(this DataMapObject mapObject)
         {
             var selectQuery = "SELECT * FROM " + mapObject.TableName + " WHERE " + mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName + " = '" + mapObject.Guid + "'";
@@ -30,6 +44,17 @@ namespace PhoneDirectoryWPF.Data.Functions
             {
                 PopulateRowFromObject(results.Rows[0], mapObject);
                 return DBFactory.GetMySqlDatabase().UpdateTable(selectQuery, results);
+            }
+        }
+
+        public static async Task<int> UpdateAsync(this DataMapObject mapObject)
+        {
+            var selectQuery = "SELECT * FROM " + mapObject.TableName + " WHERE " + mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName + " = '" + mapObject.Guid + "'";
+
+            using (var results = await DBFactory.GetMySqlDatabase().DataTableFromQueryStringAsync(selectQuery))
+            {
+                PopulateRowFromObject(results.Rows[0], mapObject);
+                return await DBFactory.GetMySqlDatabase().UpdateTableAsync(selectQuery, results);
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PhoneDirectoryWPF.Data.Classes
 {
@@ -158,9 +159,27 @@ namespace PhoneDirectoryWPF.Data.Classes
             }
         }
 
+        public virtual async Task<DataMapObject> FromDatabaseAsync()
+        {
+            // Get a fresh copy of the object from the DB.
+            using (var results = await DBFactory.GetMySqlDatabase().DataTableFromQueryStringAsync(Queries.SelectMapObject(this)))
+            {
+                var newObj = Activator.CreateInstance(this.GetType(), new object[] { results });
+                return (DataMapObject)newObj;
+            }
+        }
+
         public virtual void DeleteFromDatabase()
         {
             var affectedRows = DBFactory.GetMySqlDatabase().ExecuteNonQuery(Queries.DeleteMapObject(this));
+
+            if (affectedRows != 1)
+                throw new Exception("Error occured during delete. The number of affected rows was unexpected.");
+        }
+
+        public virtual async Task DeleteFromDatabaseAsync()
+        {
+            var affectedRows = await DBFactory.GetMySqlDatabase().ExecuteNonQueryAsync(Queries.DeleteMapObject(this));
 
             if (affectedRows != 1)
                 throw new Exception("Error occured during delete. The number of affected rows was unexpected.");

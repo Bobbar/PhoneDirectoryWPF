@@ -2,6 +2,7 @@
 using PhoneDirectoryWPF.Data;
 using System.ComponentModel;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace PhoneDirectoryWPF.Containers
 {
@@ -160,6 +161,14 @@ namespace PhoneDirectoryWPF.Containers
         public override DataMapObject FromDatabase()
         {
             using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectExtensionByNumber(this.Number)))
+            {
+                return new Extension(results);
+            }
+        }
+
+        public override async Task<DataMapObject> FromDatabaseAsync()
+        {
+            using (var results = await DBFactory.GetMySqlDatabase().DataTableFromQueryStringAsync(Queries.SelectExtensionByNumber(this.Number)))
             {
                 return new Extension(results);
             }

@@ -36,6 +36,7 @@ namespace PhoneDirectoryWPF.Data.Functions
         public void Start(bool cacheMode)
         {
             IsInCacheMode = cacheMode;
+            OnCacheStatusChanged(cacheMode);
             watchdogTask.Start();
         }
 
@@ -80,7 +81,8 @@ namespace PhoneDirectoryWPF.Data.Functions
             {
                 if (disposing)
                 {
-                    watchdogTask.Dispose();
+                  
+                   // watchdogTask.Dispose();
                 }
 
                 disposedValue = true;

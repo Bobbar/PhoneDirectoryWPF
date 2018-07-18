@@ -5,6 +5,7 @@ using PhoneDirectoryWPF.Security;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace PhoneDirectoryWPF.UI
 {
@@ -23,6 +24,8 @@ namespace PhoneDirectoryWPF.UI
         public event EventHandler<ExtensionDeletedEventArgs> ExtensionDeleted;
 
         private bool inputEnabled = true;
+
+        private bool isNew = false;
 
         public bool InputEnabled
         {
@@ -54,6 +57,7 @@ namespace PhoneDirectoryWPF.UI
             saveButton.Visibility = Visibility.Collapsed;
             deleteButton.Visibility = Visibility.Collapsed;
 
+            isNew = true;
             this.Title = "New";
             this.FieldGroupBox.Header = "Add New Extension";
 
@@ -70,80 +74,98 @@ namespace PhoneDirectoryWPF.UI
             this.FieldGroupBox.Header = "Edit Extension";
 
             this.extensionContext = extension;
+
             // Set this context to a copy from the database.
-            this.DataContext = extension.FromDatabase();
+            SetContextFromDatabase(extension);
         }
 
-        private void UpdateExtension()
+        private async Task SetContextFromDatabase(Extension extension)
+        {
+            this.DataContext = await extension.FromDatabaseAsync();
+        }
+
+        private async Task UpdateExtension()
         {
             // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
 
-            var ctx = (Extension)this.DataContext;
-
-            try
+            using (var spinner = new WaitSpinner(this, "Updating extension...", 50))
             {
-                ctx.Update();
-            }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
-            {
-                HandleSqlException(ex);
+                var ctx = (Extension)this.DataContext;
 
-                Console.WriteLine(ex.Number + "  " + ex.ToString());
-                return;
+                try
+                {
+                    await ctx.UpdateAsync();
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    // spinner.Dispose();
+                    HandleSqlException(ex);
+
+                    Console.WriteLine(ex.Number + "  " + ex.ToString());
+                    return;
+                }
+
+                // Copy new values to the original context to update the main window values.
+                this.extensionContext.CopyValues(ctx);
             }
 
-            // Copy new values to the original context to update the main window values.
-            this.extensionContext.CopyValues(ctx);
-            UserPrompts.PopupMessage("Extension updated.", "Success!");
+            UserPrompts.PopupMessage(this, "Extension updated.", "Success!");
         }
 
-        private void AddExtension()
+        private async Task AddExtension()
         {
             // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Add);
 
-            try
+            using (new WaitSpinner(this, "Adding extension...", 50))
             {
-                extensionContext.Insert();
-            }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
-            {
-                HandleSqlException(ex);
+                try
+                {
+                    await extensionContext.InsertAsync();
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    HandleSqlException(ex);
 
-                Console.WriteLine(ex.Number + "  " + ex.ToString());
-                return;
+                    Console.WriteLine(ex.Number + "  " + ex.ToString());
+                    return;
+                }
+
+                this.DataContext = await extensionContext.FromDatabaseAsync();
+                InputEnabled = false;
             }
 
-            this.DataContext = extensionContext.FromDatabase();
-            InputEnabled = false;
-            UserPrompts.PopupMessage("Extension added.", "Success!");
+            UserPrompts.PopupMessage(this, "Extension added.", "Success!");
         }
 
         private async void DeleteExtension()
         {
             SecurityFunctions.CheckForAccess(SecurityGroups.Delete);
 
-            var result = (bool)await UserPrompts.PopupDialog("Are you sure you want to delete this extension?", "Delete Extension", DialogButtons.YesNo);
+            var result = (bool)await UserPrompts.PopupDialog(this, "Are you sure you want to delete this extension?", "Delete Extension", DialogButtons.YesNo);
 
             if (!result)
                 return;
 
             var ctx = (Extension)this.DataContext;
 
-            try
+            using (new WaitSpinner(this, "Deleting extension...", 50))
             {
-                ctx.DeleteFromDatabase();
-            }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
-            {
-                HandleSqlException(ex);
+                try
+                {
+                    await ctx.DeleteFromDatabaseAsync();
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    HandleSqlException(ex);
 
-                Console.WriteLine(ex.Number + "  " + ex.ToString());
-                return;
+                    Console.WriteLine(ex.Number + "  " + ex.ToString());
+                    return;
+                }
             }
 
-            await UserPrompts.PopupDialog(string.Format("Extension '{0}' deleted!", extensionContext.Number), "Success", DialogButtons.Default);
+            await UserPrompts.PopupDialog(this, string.Format("Extension '{0}' deleted!", extensionContext.Number), "Success", DialogButtons.Default);
             OnExtensionDeleted(extensionContext);
             ((Extension)DataContext).Dispose();
             extensionContext.Dispose();
@@ -156,19 +178,19 @@ namespace PhoneDirectoryWPF.UI
             {
                 case MySql.Data.MySqlClient.MySqlErrorCode.DuplicateKeyEntry:
                     var prompt = string.Format("An extension with the value '{0}' already exists in the database.", ((Extension)DataContext).Number);
-                    UserPrompts.PopupMessage(prompt, "Duplicates Not Allowed");
+                    UserPrompts.PopupMessage(this, prompt, "Duplicates Not Allowed");
                     break;
 
                 case MySql.Data.MySqlClient.MySqlErrorCode.NoDefaultForField:
-                    UserPrompts.PopupMessage(ex.Message, "Required Field Empty");
+                    UserPrompts.PopupMessage(this, ex.Message, "Required Field Empty");
                     break;
 
                 case MySql.Data.MySqlClient.MySqlErrorCode.DataTooLong:
-                    UserPrompts.PopupMessage(ex.Message, "Data Too Long");
+                    UserPrompts.PopupMessage(this, ex.Message, "Data Too Long");
                     break;
 
                 default:
-                    UserPrompts.PopupMessage(ex.Message, "Unexpected Database Error!");
+                    UserPrompts.PopupMessage(this, ex.Message, "Unexpected Database Error!");
                     break;
             }
         }
@@ -191,6 +213,29 @@ namespace PhoneDirectoryWPF.UI
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteExtension();
+        }
+        
+        private void EditWindow_ContentRendered(object sender, EventArgs e)
+        {
+            // If content is rendered before the data context has been populated
+            // display a progress spinner until it has been.
+            if (!isNew && ((Extension)this.DataContext).Number == null)
+            {
+                FieldGroupBox.IsEnabled = false;
+                WaitingSpinner.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void EditWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            // If the datacontext is populated with a valid extension,
+            // hide the progress spinner and enable the fields.
+            if (((Extension)this.DataContext).Number != null && !isNew)
+            {
+                FieldGroupBox.IsEnabled = true;
+                WaitingSpinner.Visibility = Visibility.Hidden;
+            }
+
         }
     }
 }

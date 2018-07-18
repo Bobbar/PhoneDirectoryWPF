@@ -42,7 +42,7 @@ namespace PhoneDirectoryWPF.UI
             InitializeComponent();
         }
 
-        private void DialogHost_DialogOpened(object sender, DialogOpenedEventArgs eventArgs)
+        public void DialogHost_DialogOpened(object sender, DialogOpenedEventArgs eventArgs)
         {
             dialogSession = eventArgs.Session;
         }
@@ -54,7 +54,11 @@ namespace PhoneDirectoryWPF.UI
 
         public void Hide()
         {
-            dialogSession?.Close();
+            if (dialogSession == null)
+                return;
+
+            if (!dialogSession.IsEnded)
+                dialogSession.Close();
         }
     }
 }

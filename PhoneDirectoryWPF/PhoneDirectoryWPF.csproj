@@ -56,9 +56,9 @@
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MaterialDesignThemes.Wpf, Version=1.2.0.24380, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -101,6 +101,8 @@
     <Compile Include="Data\Functions\SqliteFunctions.cs" />
     <Compile Include="Data\Functions\WatchDog\WatchDogInstance.cs" />
     <Compile Include="Helpers\UserPrompts.cs" />
+    <Compile Include="Helpers\WaitCursor.cs" />
+    <Compile Include="Helpers\WaitSpinner.cs" />
     <Compile Include="Security\InvalidAccessException.cs" />
     <Compile Include="Security\SecurityFunctions.cs" />
     <Compile Include="Security\SecurityGroups.cs" />
