@@ -18,6 +18,7 @@ namespace PhoneDirectoryWPF.Helpers
         private SpinnerDialog spinner;
         private ManualResetEvent delayShowWaitHandle = new ManualResetEvent(false);
         private int showDelayMS = 50;
+        private string currentStatus;
 
         /// <summary>
         /// Set/update the status text currently displayed on the <see cref="SpinnerDialog"/>. 
@@ -31,7 +32,14 @@ namespace PhoneDirectoryWPF.Helpers
 
             set
             {
-                spinner.StatusText = value;
+                if (spinner != null)
+                {
+                    spinner.StatusText = value;
+                }
+                else
+                {
+                    currentStatus = value;
+                }
             }
         }
 
@@ -70,6 +78,9 @@ namespace PhoneDirectoryWPF.Helpers
             // not attempt to display the spinner.
             if (delayShowWaitHandle.WaitOne(0))
                 return;
+
+            if (!string.IsNullOrEmpty(currentStatus) && currentStatus != initialStatus)
+                initialStatus = currentStatus;
 
             spinner = DisplaySpinner(window);
             spinner.StatusText = initialStatus;

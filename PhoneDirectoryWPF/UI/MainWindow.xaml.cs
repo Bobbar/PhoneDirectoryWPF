@@ -60,7 +60,7 @@ namespace PhoneDirectoryWPF.UI
             bool canReach = false;
             bool cacheVerified = false;
 
-            using (var spinner = new WaitSpinner(this, "Connecting to database..."))
+            using (var spinner = new WaitSpinner(this, "Connecting to database...", 2000))
             {
                 await Task.Run(() =>
                 {

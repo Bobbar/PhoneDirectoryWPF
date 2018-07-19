@@ -59,7 +59,7 @@
                 <StatusBarItem HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
                     <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,10,0" HorizontalAlignment="Center">
                         <materialDesign:PackIcon Name="ConnectStatusIcon" Kind="LanDisconnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
-                        <TextBlock Name="ConnectStatusText" FontSize="13" Text="Disconnected" Margin="4,0,0,0"></TextBlock>
+                        <TextBlock Name="ConnectStatusText" FontSize="13" Text="Connecting..." Margin="4,0,0,0"></TextBlock>
                     </StackPanel>
                 </StatusBarItem>
             </StatusBar>
