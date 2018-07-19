@@ -81,7 +81,7 @@ namespace PhoneDirectoryWPF.UI
                     SecurityFunctions.PopulateAccessGroups();
                 });
             }
-            
+
             if (!cacheVerified && !canReach)
             {
                 await UserPrompts.PopupMessage(this, "Cannot connect to the database and the local cache was not verified.", "Cannot Run");
@@ -183,6 +183,9 @@ namespace PhoneDirectoryWPF.UI
 
         private void EditExtension(Extension extension)
         {
+            if (extension == null)
+                return;
+
             SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
 
             var editWindow = new EditWindow(extension);
@@ -236,10 +239,25 @@ namespace PhoneDirectoryWPF.UI
 
         private void resultListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = resultListView.SelectedItem;
-            Console.WriteLine(item.ToString());
+            var data = ((FrameworkElement)e.OriginalSource).DataContext;
 
-            EditExtension((Extension)item);
+            if (data != null && data is Extension)
+            {
+                EditExtension((Extension)data);
+            }
+        }
+
+        private void resultListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var data = ((FrameworkElement)e.OriginalSource).DataContext;
+
+                if (data != null && data is Extension)
+                {
+                    EditExtension((Extension)data);
+                }
+            }
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)

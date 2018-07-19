@@ -10,7 +10,7 @@
              mc:Ignorable="d" d:DesignWidth="300" Height="215">
 
     <Grid Name="SpinnerContent">
-        <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Please wait" Margin="10" FontSize="16">
+        <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Please wait" Margin="10" FontSize="16" FontWeight="Medium">
             <Grid Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="79*"/>
@@ -18,7 +18,7 @@
                     <RowDefinition Height="21*"/>
                 </Grid.RowDefinitions>
                 <ProgressBar Grid.Row="0" Style="{StaticResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center" IsIndeterminate="True" Value="0" Margin="106,0" VerticalAlignment="Bottom" Width="50" Height="50"/>
-                <TextBox IsReadOnly="True" Text="{Binding StatusText, ElementName=MySpinnerDialog, Mode=OneWay, NotifyOnSourceUpdated=True}" Grid.Row="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Height="28" Margin="5,0" FontSize="14"/>
+                <TextBox IsReadOnly="True" Text="{Binding StatusText, ElementName=MySpinnerDialog, Mode=OneWay, NotifyOnSourceUpdated=True}" Grid.Row="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Height="28" Margin="5,0" FontSize="14" FontWeight="Normal"/>
             </Grid>
         </GroupBox>
 

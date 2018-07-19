@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace PhoneDirectoryWPF.Data.Functions
 {
@@ -7,6 +8,7 @@ namespace PhoneDirectoryWPF.Data.Functions
     {
         public event EventHandler<bool> CacheStatusChanged;
 
+        private ManualResetEvent loopWaitHandle = new ManualResetEvent(false);
         private Task watchdogTask;
         private bool isInCacheMode = false;
         private const int watchdogInterval = 5000;
@@ -44,12 +46,15 @@ namespace PhoneDirectoryWPF.Data.Functions
 
         private void OnCacheStatusChanged(bool cacheMode)
         {
+            if (loopWaitHandle.WaitOne(0))
+                return;
+
             CacheStatusChanged?.Invoke(this, cacheMode);
         }
 
         private void DoWatchdogLoop()
         {
-            while (!disposedValue)
+            while (!loopWaitHandle.WaitOne(0))
             {
                 try
                 {
@@ -78,7 +83,7 @@ namespace PhoneDirectoryWPF.Data.Functions
 
                 cycles++;
 
-                Task.Delay(watchdogInterval).Wait();
+                loopWaitHandle.WaitOne(watchdogInterval);
             }
         }
 
@@ -92,8 +97,9 @@ namespace PhoneDirectoryWPF.Data.Functions
             {
                 if (disposing)
                 {
-                  
-                   // watchdogTask.Dispose();
+                    loopWaitHandle.Set();
+                    watchdogTask.Wait();
+                    watchdogTask.Dispose();
                 }
 
                 disposedValue = true;

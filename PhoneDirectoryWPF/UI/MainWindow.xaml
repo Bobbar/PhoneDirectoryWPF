@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         mc:Ignorable="d"
-        Title="Phone Directory" Height="722" Width="749" FontSize="16" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
+        Title="Phone Directory" Height="702" Width="789" FontSize="16" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered" ResizeMode="CanResizeWithGrip">
 
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
         <Grid>
@@ -38,7 +38,7 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox1" Header="Results" Margin="10,181,10,5">
-                    <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick">
+                    <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick" KeyDown="resultListView_KeyDown">
                         <ListView.View>
                             <GridView x:Name="resultGridView" AllowsColumnReorder="False">
                                 <GridViewColumn Header="Extension" Width="100" DisplayMemberBinding="{Binding Number, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>

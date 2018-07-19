@@ -1,6 +1,5 @@
 ﻿using PhoneDirectoryWPF.Helpers;
 using PhoneDirectoryWPF.Security;
-using ShowMeTheXAML;
 using System.Windows;
 using PhoneDirectoryWPF.Data.Functions;
 using PhoneDirectoryWPF.Data;
@@ -17,10 +16,8 @@ namespace PhoneDirectoryWPF
         {
             DispatcherUnhandledException += App_DispatcherUnhandledException;
 
-            XamlDisplay.Init();
             base.OnStartup(e);
         }
-
        
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
@@ -44,6 +41,7 @@ namespace PhoneDirectoryWPF
             }
             else
             {
+                Logging.Exception(e.Exception);
                 UserPrompts.PopupMessage(e.Exception.ToString(), "UNHANDLED ERROR!");
                 e.Handled = false;
             }

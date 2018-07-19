@@ -28,7 +28,7 @@ namespace PhoneDirectoryWPF.Data
 
         public static IDatabase GetMySqlDatabase()
         {
-            return new MySqlDatabase(serverIp, "phone_dir_user", "Ph0n3D1rU53rP455", "phone_test_db");
+            return new MySqlDatabase(serverIp, "phone_dir_user", "Ph0n3D1rU53rP455", "phone_directory");
         }
 
         public static IDatabase GetSqliteDatabase()

@@ -6,7 +6,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
-             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
              Style="{StaticResource GlobalMaterialStyle}"
              mc:Ignorable="d" Width="498" Height="220">
 
