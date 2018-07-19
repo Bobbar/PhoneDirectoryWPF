@@ -7,7 +7,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         mc:Ignorable="d"
-        Title="Phone Directory" Height="702" Width="789" FontSize="16" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered" ResizeMode="CanResizeWithGrip">
+        Title="Phone Directory" 
+        Height="702" 
+        Width="789"  
+        FontSize="16" 
+        WindowStartupLocation="CenterScreen" 
+        ContentRendered="Window_ContentRendered" 
+        ResizeMode="CanResizeWithGrip"
+        MinHeight="367"
+        MinWidth="594">
 
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
         <Grid>
