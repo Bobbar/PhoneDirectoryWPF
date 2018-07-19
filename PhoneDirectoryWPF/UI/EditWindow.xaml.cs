@@ -81,7 +81,16 @@ namespace PhoneDirectoryWPF.UI
 
         private async void SetContextFromDatabase(Extension extension)
         {
-            this.DataContext = await extension.FromDatabaseAsync();
+            try
+            {
+                this.DataContext = await extension.FromDatabaseAsync();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                HandleSqlException(ex);
+
+                return;
+            }
         }
 
         private async void UpdateExtension()
@@ -171,8 +180,10 @@ namespace PhoneDirectoryWPF.UI
             this.Close();
         }
 
-        private void HandleSqlException(MySql.Data.MySqlClient.MySqlException ex)
+        private async void HandleSqlException(MySql.Data.MySqlClient.MySqlException ex)
         {
+            Logging.Exception(ex);
+
             switch ((MySql.Data.MySqlClient.MySqlErrorCode)ex.Number)
             {
                 case MySql.Data.MySqlClient.MySqlErrorCode.DuplicateKeyEntry:
@@ -186,6 +197,11 @@ namespace PhoneDirectoryWPF.UI
 
                 case MySql.Data.MySqlClient.MySqlErrorCode.DataTooLong:
                     UserPrompts.PopupMessage(this, ex.Message, "Data Too Long");
+                    break;
+
+                case MySql.Data.MySqlClient.MySqlErrorCode.UnableToConnectToHost:
+                    await UserPrompts.PopupDialog(this, "Could not connect to the server.", "Connection Lost", DialogButtons.Default);
+                    this.Close();
                     break;
 
                 default:
