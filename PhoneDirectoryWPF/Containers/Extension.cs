@@ -1,5 +1,7 @@
-﻿using PhoneDirectoryWPF.Data.Classes;
+﻿using Database.Data;
 using PhoneDirectoryWPF.Data;
+using PhoneDirectoryWPF.Data.Classes;
+using PhoneDirectoryWPF.Data.Functions;
 using System.ComponentModel;
 using System.Data;
 using System.Threading.Tasks;
@@ -158,20 +160,19 @@ namespace PhoneDirectoryWPF.Containers
             }
         }
 
-        public override DataMapObject FromDatabase()
-        {
-            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(Queries.SelectExtensionByNumber(this.Number)))
-            {
-                return new Extension(results);
-            }
-        }
-
         public override async Task<DataMapObject> FromDatabaseAsync()
         {
-            using (var results = await DBFactory.GetMySqlDatabase().DataTableFromQueryStringAsync(Queries.SelectExtensionByNumber(this.Number)))
+            var taskResult = Task.Run(() =>
             {
-                return new Extension(results);
-            }
+                var param = new DBQueryParameter(this.GetAttribute(nameof(Extension.Number)).ColumnName, this.Number, true);
+
+                using (var results = DBFactory.GetDatabase().DataTableFromParameters(Queries.SelectExtensionPartial, param))
+                {
+                    return results;
+                }
+            });
+
+            return new Extension(await taskResult);
         }
     }
 }

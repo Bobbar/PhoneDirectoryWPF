@@ -89,7 +89,7 @@ namespace PhoneDirectoryWPF.UI
             // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
 
-            using (var spinner = new WaitSpinner(this, "Updating extension...", 50))
+            using (var spinner = new WaitSpinner(this, "Updating extension...", 150))
             {
                 var ctx = (Extension)this.DataContext;
 
@@ -117,7 +117,7 @@ namespace PhoneDirectoryWPF.UI
             // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Add);
 
-            using (new WaitSpinner(this, "Adding extension...", 50))
+            using (new WaitSpinner(this, "Adding extension...", 150))
             {
                 try
                 {
@@ -149,7 +149,7 @@ namespace PhoneDirectoryWPF.UI
 
             var ctx = (Extension)this.DataContext;
 
-            using (new WaitSpinner(this, "Deleting extension...", 50))
+            using (new WaitSpinner(this, "Deleting extension...", 150))
             {
                 try
                 {

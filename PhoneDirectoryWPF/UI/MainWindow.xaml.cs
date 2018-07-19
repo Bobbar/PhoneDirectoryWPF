@@ -146,7 +146,7 @@ namespace PhoneDirectoryWPF.UI
 
         private async void SearchExtension()
         {
-            var query = "SELECT * FROM extensions WHERE ";
+            var query = "SELECT * FROM extensions WHERE";
             var queryParams = GetQueryParams();
 
             if (queryParams.Count < 1) return;

@@ -15,6 +15,8 @@ namespace PhoneDirectoryWPF.Data
             return string.Format("SELECT * FROM {0} WHERE {1} = '{2}'", Tables.Extensions.TableName, Tables.Extensions.Number, number);
         }
 
+        public static string SelectExtensionPartial { get; } = string.Format("SELECT * FROM {0} WHERE", Tables.Extensions.TableName);
+
         public static string SelectMapObject(DataMapObject mapObject)
         {
             return string.Format("SELECT * FROM {0} WHERE {1} ='{2}'", mapObject.TableName, mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName, mapObject.Guid);
