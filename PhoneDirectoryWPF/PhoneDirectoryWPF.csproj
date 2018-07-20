@@ -130,6 +130,7 @@
     <Compile Include="Data\Functions\WatchDog\ConnectionWatchdog.cs" />
     <Compile Include="Data\Functions\SqliteFunctions.cs" />
     <Compile Include="Data\Functions\WatchDog\WatchDogInstance.cs" />
+    <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\UserPrompts.cs" />
     <Compile Include="Helpers\WaitCursor.cs" />

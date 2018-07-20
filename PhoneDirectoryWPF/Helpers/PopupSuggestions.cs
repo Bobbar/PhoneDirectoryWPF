@@ -91,7 +91,7 @@ namespace PhoneDirectoryWPF.Helpers
             {
                 var itemString = item.ToString();
 
-                bool inResults = itemString.StartsWith(searchText, StringComparison.CurrentCultureIgnoreCase);
+                bool inResults = itemString.Contains(searchText, StringComparison.CurrentCultureIgnoreCase);
 
                 if (inResults)
                 {
