@@ -1,4 +1,4 @@
-﻿<Window x:Class="PhoneDirectoryWPF.UI.EditWindow"
+﻿<Window
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,20 +6,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         xmlns:Containers="clr-namespace:PhoneDirectoryWPF.Containers"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="PhoneDirectoryWPF.UI.EditWindow"
         Style="{StaticResource GlobalMaterialStyle}"
         mc:Ignorable="d"
-        Name="MyEditWindow"
+        x:Name="MyEditWindow"
         Title="Edit" Height="367" Width="1070.9" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" ContentRendered="EditWindow_ContentRendered" DataContextChanged="EditWindow_DataContextChanged">
 
     <Window.DataContext>
         <Containers:Extension />
     </Window.DataContext>
 
-    <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHost">
+    <materialDesign:DialogHost x:Name="PopupDialogHost" Identifier="PopHost">
         <Grid>
             <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
-                <Grid>
-
+                <Grid Name="FieldGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="68*" />
                         <RowDefinition Height="70*" />
@@ -50,7 +50,6 @@
                             <Button x:Name="deleteButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Delete" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="150" Click="deleteButton_Click" />
                         </StackPanel>
                     </Grid>
-
                 </Grid>
             </GroupBox>
         </Grid>

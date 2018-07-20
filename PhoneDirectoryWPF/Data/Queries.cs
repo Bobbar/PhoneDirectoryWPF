@@ -22,6 +22,8 @@ namespace PhoneDirectoryWPF.Data
             return string.Format("SELECT * FROM {0} WHERE {1} ='{2}'", mapObject.TableName, mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName, mapObject.Guid);
         }
 
+        public static string SelectDepartments { get; } = string.Format("SELECT DISTINCT {0} FROM {1} ORDER BY {0}", Tables.Extensions.Department, Tables.Extensions.TableName);
+
         public static string DeleteMapObject(DataMapObject mapObject)
         {
             return string.Format("DELETE FROM {0} WHERE {1} ='{2}'", mapObject.TableName, mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName, mapObject.Guid);

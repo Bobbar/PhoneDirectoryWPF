@@ -4,7 +4,6 @@ using PhoneDirectoryWPF.Helpers;
 using PhoneDirectoryWPF.Security;
 using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace PhoneDirectoryWPF.UI
@@ -63,6 +62,8 @@ namespace PhoneDirectoryWPF.UI
 
             extensionContext = new Extension();
             this.DataContext = extensionContext;
+
+            InitSuggestions();
         }
 
         public EditWindow(Extension extension)
@@ -77,6 +78,23 @@ namespace PhoneDirectoryWPF.UI
 
             // Set this context to a copy from the database.
             SetContextFromDatabase(extension);
+
+            InitSuggestions();
+        }
+
+        private async void InitSuggestions()
+        {
+            try
+            {
+                var departments = await MiscFunctions.DepartmentList();
+                new PopupSuggestions(departmentTextBox, departments);
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                HandleSqlException(ex);
+
+                return;
+            }
         }
 
         private async void SetContextFromDatabase(Extension extension)
@@ -239,6 +257,8 @@ namespace PhoneDirectoryWPF.UI
                 FieldGroupBox.IsEnabled = false;
                 WaitingSpinner.Visibility = Visibility.Visible;
             }
+
+            //  ListTest();
         }
 
         private void EditWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
