@@ -26,6 +26,8 @@ namespace PhoneDirectoryWPF.UI
 
         private bool isNew = false;
 
+        private PopupSpinner loadingSpinner;
+
         public bool InputEnabled
         {
             get
@@ -73,6 +75,8 @@ namespace PhoneDirectoryWPF.UI
 
             this.Title = "Edit";
             this.FieldGroupBox.Header = "Edit Extension";
+
+            loadingSpinner = new PopupSpinner(FieldGrid, 0);
 
             this.extensionContext = extension;
 
@@ -255,10 +259,8 @@ namespace PhoneDirectoryWPF.UI
             if (!isNew && ((Extension)this.DataContext).Number == null)
             {
                 FieldGroupBox.IsEnabled = false;
-                WaitingSpinner.Visibility = Visibility.Visible;
+                loadingSpinner.Wait();
             }
-
-            //  ListTest();
         }
 
         private void EditWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -268,7 +270,7 @@ namespace PhoneDirectoryWPF.UI
             if (((Extension)this.DataContext).Number != null && !isNew)
             {
                 FieldGroupBox.IsEnabled = true;
-                WaitingSpinner.Visibility = Visibility.Hidden;
+                loadingSpinner.Hide();
             }
         }
     }

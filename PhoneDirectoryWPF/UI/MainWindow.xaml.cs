@@ -20,10 +20,15 @@ namespace PhoneDirectoryWPF.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private PopupSpinner workingSpinner;
+
         public MainWindow()
         {
             InitializeComponent();
             InitDBControls();
+
+            workingSpinner = new PopupSpinner(resultListView);
+
             WatchDogInstance.WatchDog.CacheStatusChanged += WatchDog_CacheStatusChanged;
         }
 
@@ -95,6 +100,8 @@ namespace PhoneDirectoryWPF.UI
             {
                 WatchDogInstance.WatchDog.Start(false);
             }
+
+            FieldsGrid.IsEnabled = true;
         }
 
         private void InitDBControls()
@@ -144,41 +151,66 @@ namespace PhoneDirectoryWPF.UI
             return queryParams;
         }
 
+        private bool searchRunning = false;
+        private bool searchNeeded = false;
+
         private async void SearchExtension()
         {
-            var query = "SELECT * FROM extensions WHERE";
-            var queryParams = GetQueryParams();
-
-            if (queryParams.Count < 1) return;
-
-            await Task.Run(() =>
+            // Reentrancy logic:
+            // If a search is already running, set a variable so
+            // that we know that we need to run another search
+            // after the current one finishes.
+            if (searchRunning)
             {
-                using (var results = DBFactory.GetDatabase().DataTableFromParameters(query, queryParams))
+                searchNeeded = true;
+                return;
+            }
+
+            searchRunning = true;
+            searchNeeded = false;
+
+            try
+            {
+                var query = "SELECT * FROM extensions WHERE";
+                var queryParams = GetQueryParams();
+
+                if (queryParams.Count < 1) return;
+
+                workingSpinner.Wait(200);
+
+                var searchResults = await Task.Run(() =>
                 {
-                    var resultList = new List<Extension>();
-
-                    foreach (DataRow row in results.Rows)
+                    using (var results = DBFactory.GetDatabase().DataTableFromParameters(query, queryParams))
                     {
-                        resultList.Add(new Extension(row));
-                    }
+                        var resultList = new List<Extension>();
 
-                    PopulateResults(resultList);
-                }
-            });
+                        foreach (DataRow row in results.Rows)
+                        {
+                            resultList.Add(new Extension(row));
+                        }
+
+                        return resultList;
+                    }
+                });
+
+                PopulateResults(searchResults);
+
+                workingSpinner.Hide();
+            }
+            finally
+            {
+                searchRunning = false;
+
+                if (searchNeeded)
+                    SearchExtension();
+            }
         }
 
         private void PopulateResults(List<Extension> results)
         {
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(new Action(() => PopulateResults(results)));
-            }
-            else
-            {
-                resultListView.ItemsSource = null;
-                resultListView.Items.Clear();
-                resultListView.ItemsSource = results;
-            }
+            resultListView.ItemsSource = null;
+            resultListView.Items.Clear();
+            resultListView.ItemsSource = results;
         }
 
         private void EditExtension(Extension extension)

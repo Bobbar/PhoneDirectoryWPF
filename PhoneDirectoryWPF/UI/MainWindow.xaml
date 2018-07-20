@@ -23,7 +23,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="26"/>
             </Grid.RowDefinitions>
-            <Grid Margin="0,0" Grid.Column="0">
+            <Grid Name="FieldsGrid" Margin="0,0" Grid.Column="0" IsEnabled="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="95*"/>
                 </Grid.RowDefinitions>
