@@ -19,6 +19,8 @@ namespace PhoneDirectoryWPF.Data
             public static string Department = "department";
             public static string Firstname = "firstname";
             public static string Lastname = "lastname";
+            public static string Timestamp = "timestamp";
+            public static string ModifyUser = "mod_user";
         }
 
         public static class Security

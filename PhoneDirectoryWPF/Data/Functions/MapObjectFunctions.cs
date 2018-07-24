@@ -10,40 +10,17 @@ namespace PhoneDirectoryWPF.Data.Functions
 {
     public static class MapObjectFunctions
     {
-        public static int Insert(this DataMapObject mapObject)
-        {
-            var selectQuery = "SELECT * FROM " + mapObject.TableName + " LIMIT 0";
-
-            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(selectQuery))
-            {
-                results.Rows.Add();
-                PopulateRowFromObject(results.Rows[0], mapObject);
-
-                return DBFactory.GetMySqlDatabase().UpdateTable(selectQuery, results);
-            }
-        }
-
         public static async Task<int> InsertAsync(this DataMapObject mapObject)
         {
             var selectQuery = "SELECT * FROM " + mapObject.TableName + " LIMIT 0";
 
             using (var results = await DBFactory.GetMySqlDatabase().DataTableFromQueryStringAsync(selectQuery))
             {
-                results.Rows.Add();
-                PopulateRowFromObject(results.Rows[0], mapObject);
+                var newRow = results.Rows.Add();
+                newRow[Tables.Extensions.ModifyUser] = Security.SecurityFunctions.LocalUser.UserName;
+                PopulateRowFromObject(newRow, mapObject);
 
                 return await DBFactory.GetMySqlDatabase().UpdateTableAsync(selectQuery, results);
-            }
-        }
-
-        public static int Update(this DataMapObject mapObject)
-        {
-            var selectQuery = "SELECT * FROM " + mapObject.TableName + " WHERE " + mapObject.GetAttribute(nameof(mapObject.Guid)).ColumnName + " = '" + mapObject.Guid + "'";
-
-            using (var results = DBFactory.GetMySqlDatabase().DataTableFromQueryString(selectQuery))
-            {
-                PopulateRowFromObject(results.Rows[0], mapObject);
-                return DBFactory.GetMySqlDatabase().UpdateTable(selectQuery, results);
             }
         }
 
@@ -53,6 +30,8 @@ namespace PhoneDirectoryWPF.Data.Functions
 
             using (var results = await DBFactory.GetMySqlDatabase().DataTableFromQueryStringAsync(selectQuery))
             {
+                results.Rows[0][Tables.Extensions.ModifyUser] = Security.SecurityFunctions.LocalUser.UserName;
+
                 PopulateRowFromObject(results.Rows[0], mapObject);
                 return await DBFactory.GetMySqlDatabase().UpdateTableAsync(selectQuery, results);
             }

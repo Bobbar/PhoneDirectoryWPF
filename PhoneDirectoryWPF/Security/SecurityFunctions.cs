@@ -13,6 +13,8 @@ namespace PhoneDirectoryWPF.Security
         private static Dictionary<string, AccessGroup> accessGroups = new Dictionary<string, AccessGroup>();
         private static LocalUser localUser;
 
+        public static LocalUser LocalUser { get { return localUser; } }
+
         public static void PopulateUserAccess()
         {
             try
