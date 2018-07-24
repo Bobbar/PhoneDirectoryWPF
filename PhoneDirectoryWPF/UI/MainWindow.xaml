@@ -38,9 +38,9 @@
                             <ColumnDefinition Width="292*"/>
                             <ColumnDefinition Width="261"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="extensionTextBox_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="userTextBox_KeyUp"/>
-                        <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="departmentTextBox_KeyUp"/>
+                        <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="searchField_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp"/>
+                        <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp"/>
                         <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click"/>
                         <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click"/>
                     </Grid>

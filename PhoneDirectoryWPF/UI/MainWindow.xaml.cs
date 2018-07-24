@@ -22,6 +22,9 @@ namespace PhoneDirectoryWPF.UI
     {
         private PopupSpinner workingSpinner;
 
+        private bool searchRunning = false;
+        private bool searchNeeded = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -108,7 +111,7 @@ namespace PhoneDirectoryWPF.UI
         {
             extensionTextBox.Tag = new DBControlAttribute("extension", ControlSearchType.StartsWith);
             userTextBox.Tag = new DBControlAttribute("user", ControlSearchType.EntireValue);
-            departmentTextBox.Tag = new DBControlAttribute("department", ControlSearchType.StartsWith);
+            departmentTextBox.Tag = new DBControlAttribute("department", ControlSearchType.EntireValue);
         }
 
         private List<DBQueryParameter> GetQueryParams()
@@ -151,9 +154,6 @@ namespace PhoneDirectoryWPF.UI
             return queryParams;
         }
 
-        private bool searchRunning = false;
-        private bool searchNeeded = false;
-
         private async void SearchExtension()
         {
             // Reentrancy logic:
@@ -178,7 +178,7 @@ namespace PhoneDirectoryWPF.UI
 
                 workingSpinner.Wait(200);
 
-                var searchResults = await Task.Run(() =>
+                var asyncResults = await Task.Run(() =>
                 {
                     using (var results = DBFactory.GetDatabase().DataTableFromParameters(query, queryParams))
                     {
@@ -193,7 +193,7 @@ namespace PhoneDirectoryWPF.UI
                     }
                 });
 
-                PopulateResults(searchResults);
+                PopulateResults(asyncResults);
 
                 workingSpinner.Hide();
             }
@@ -270,19 +270,12 @@ namespace PhoneDirectoryWPF.UI
             resultListView.Items.Clear();
         }
 
-        private void extensionTextBox_KeyUp(object sender, KeyEventArgs e)
+        private void searchField_KeyUp(object sender, KeyEventArgs e)
         {
-            SearchExtension();
-        }
-
-        private void userTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchExtension();
-        }
-
-        private void departmentTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchExtension();
+            if (e.Key != Key.LeftShift && e.Key != Key.RightShift && e.Key != Key.Enter)
+            {
+                SearchExtension();
+            }
         }
 
         private void resultListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
