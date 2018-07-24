@@ -89,7 +89,11 @@ namespace PhoneDirectoryWPF.Data.Functions
                         // Set row column to property value.
                         var propValue = prop.GetValue(obj);
 
-                        if (propValue != null)
+                        if (propValue == null)
+                        {
+                            row[columnName] = DBNull.Value;
+                        }
+                        else
                         {
                             row[columnName] = propValue;
                         }

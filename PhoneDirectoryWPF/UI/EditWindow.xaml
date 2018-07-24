@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
         xmlns:Containers="clr-namespace:PhoneDirectoryWPF.Containers"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="PhoneDirectoryWPF.UI.EditWindow"
-        Style="{StaticResource GlobalMaterialStyle}"
         mc:Ignorable="d"
         x:Name="MyEditWindow"
-        Title="Edit" Height="367" Width="1070.9" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" ContentRendered="EditWindow_ContentRendered" DataContextChanged="EditWindow_DataContextChanged">
+        Style="{StaticResource GlobalMaterialStyle}"
+        Title="Edit" Height="367" Width="1070.9" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <Containers:Extension />
@@ -19,7 +19,7 @@
     <materialDesign:DialogHost x:Name="PopupDialogHost" Identifier="PopHost">
         <Grid>
             <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
-                <Grid Name="FieldGrid">
+                <Grid x:Name="FieldGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="68*" />
                         <RowDefinition Height="70*" />
@@ -33,12 +33,42 @@
                         <ColumnDefinition Width="285*" />
                         <ColumnDefinition Width="262*" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="idTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Margin="10,0,10,7" TextWrapping="Wrap" Grid.Column="0" IsReadOnly="True" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="53" VerticalAlignment="Bottom" />
-                    <TextBox x:Name="extensionTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=Default}" />
-                    <TextBox x:Name="firstNameTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="2" materialDesign:HintAssist.Hint="First Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding FirstName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBox x:Name="lastNameTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="3" materialDesign:HintAssist.Hint="Last Name (Optional)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding LastName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBox x:Name="departmentTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="4" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Department, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBox x:Name="extensionNameTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Height="53" VerticalAlignment="Bottom" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                    <TextBox x:Name="idTextBox" IsEnabled="False" Margin="10,0,10,7" TextWrapping="Wrap" Grid.Column="0" IsReadOnly="True" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" Height="53" VerticalAlignment="Bottom" ToolTip="Auto Generated" />
+                    <TextBox x:Name="extensionTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" MaxLength="13">
+                        <TextBox.Text>
+                            <Binding Path="Number" 
+                                     Converter="{local:EmptyStringConverter}" 
+                                     Mode="TwoWay"
+                                     NotifyOnTargetUpdated="True"
+                                     NotifyOnSourceUpdated="True"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     NotifyOnValidationError="True"
+                                     FallbackValue="Extension">
+                                <Binding.ValidationRules>
+                                    <local:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="firstNameTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="2" materialDesign:HintAssist.Hint="First Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" MaxLength="45">
+                        <TextBox.Text>
+                            <Binding Path="FirstName" 
+                                     Converter="{local:EmptyStringConverter}"
+                                     Mode="TwoWay"
+                                     NotifyOnTargetUpdated="True"
+                                     NotifyOnSourceUpdated="True"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     NotifyOnValidationError="True"
+                                     FallbackValue="FirstName">
+                                <Binding.ValidationRules>
+                                    <local:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="lastNameTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="3" materialDesign:HintAssist.Hint="Last Name (Optional)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding LastName, Converter={local:EmptyStringConverter}, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="45"/>
+                    <TextBox x:Name="departmentTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="4" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Department, Converter={local:EmptyStringConverter}, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+                    <TextBox x:Name="extensionNameTextBox" IsEnabled="False" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Height="53" VerticalAlignment="Bottom" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Converter={local:EmptyStringConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ToolTip="Auto Generated" />
                     <Grid Grid.Column="4" Margin="0,20,56,1" Grid.Row="3" HorizontalAlignment="Right" Width="195">
                         <Button x:Name="cancelButton" Content="Close" Height="65" Margin="0,0,8,0" VerticalAlignment="Top" Click="cancelButton_Click" HorizontalAlignment="Right" Width="150" />
                     </Grid>

@@ -4,7 +4,9 @@ using PhoneDirectoryWPF.Helpers;
 using PhoneDirectoryWPF.Security;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PhoneDirectoryWPF.UI
 {
@@ -18,15 +20,12 @@ namespace PhoneDirectoryWPF.UI
         // The changes will then be reflected on the main window.
         private Extension extensionContext;
 
+        private bool inputEnabled = true;
+        private bool isNew = false;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler<ExtensionDeletedEventArgs> ExtensionDeleted;
-
-        private bool inputEnabled = true;
-
-        private bool isNew = false;
-
-        private PopupSpinner loadingSpinner;
 
         public bool InputEnabled
         {
@@ -68,20 +67,15 @@ namespace PhoneDirectoryWPF.UI
             InitSuggestions();
         }
 
-        public EditWindow(Extension extension)
+        public EditWindow(Extension localExtension, Extension remoteExtension)
         {
             InitializeComponent();
             addButton.Visibility = Visibility.Collapsed;
 
             this.Title = "Edit";
             this.FieldGroupBox.Header = "Edit Extension";
-
-            loadingSpinner = new PopupSpinner(FieldGrid, 0);
-
-            this.extensionContext = extension;
-
-            // Set this context to a copy from the database.
-            SetContextFromDatabase(extension);
+            this.extensionContext = localExtension;
+            this.DataContext = remoteExtension;
 
             InitSuggestions();
         }
@@ -95,7 +89,7 @@ namespace PhoneDirectoryWPF.UI
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                HandleSqlException(ex);
+                ExceptionHandler.MySqlException(this, ex);
 
                 return;
             }
@@ -109,16 +103,31 @@ namespace PhoneDirectoryWPF.UI
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                HandleSqlException(ex);
+                ExceptionHandler.MySqlException(this, ex);
 
                 return;
             }
         }
 
+        private bool FieldsValid(DependencyObject obj)
+        {
+            var valid = !Validation.GetHasError(obj) &&
+                        LogicalTreeHelper.GetChildren(obj)
+                        .OfType<DependencyObject>()
+                        .All(FieldsValid);
+
+            if (!valid)
+                UserPrompts.PopupMessage(this, "One or more required fields are empty or invalid.", "Invalid Data");
+
+            return valid;
+        }
+
         private async void UpdateExtension()
         {
-            // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
+
+            if (!FieldsValid(this))
+                return;
 
             using (var spinner = new WaitSpinner(this, "Updating extension...", 150))
             {
@@ -130,9 +139,8 @@ namespace PhoneDirectoryWPF.UI
                 }
                 catch (MySql.Data.MySqlClient.MySqlException ex)
                 {
-                    HandleSqlException(ex);
+                    ExceptionHandler.MySqlException(this, ex);
 
-                    Console.WriteLine(ex.Number + "  " + ex.ToString());
                     return;
                 }
 
@@ -145,8 +153,10 @@ namespace PhoneDirectoryWPF.UI
 
         private async void AddExtension()
         {
-            // TODO: Field verification.
             SecurityFunctions.CheckForAccess(SecurityGroups.Add);
+
+            if (!FieldsValid(this))
+                return;
 
             using (new WaitSpinner(this, "Adding extension...", 150))
             {
@@ -156,9 +166,8 @@ namespace PhoneDirectoryWPF.UI
                 }
                 catch (MySql.Data.MySqlClient.MySqlException ex)
                 {
-                    HandleSqlException(ex);
+                    ExceptionHandler.MySqlException(this, ex);
 
-                    Console.WriteLine(ex.Number + "  " + ex.ToString());
                     return;
                 }
 
@@ -188,9 +197,8 @@ namespace PhoneDirectoryWPF.UI
                 }
                 catch (MySql.Data.MySqlClient.MySqlException ex)
                 {
-                    HandleSqlException(ex);
+                    ExceptionHandler.MySqlException(this, ex);
 
-                    Console.WriteLine(ex.Number + "  " + ex.ToString());
                     return;
                 }
             }
@@ -200,36 +208,6 @@ namespace PhoneDirectoryWPF.UI
             ((Extension)DataContext).Dispose();
             extensionContext.Dispose();
             this.Close();
-        }
-
-        private async void HandleSqlException(MySql.Data.MySqlClient.MySqlException ex)
-        {
-            Logging.Exception(ex);
-
-            switch ((MySql.Data.MySqlClient.MySqlErrorCode)ex.Number)
-            {
-                case MySql.Data.MySqlClient.MySqlErrorCode.DuplicateKeyEntry:
-                    var prompt = string.Format("An extension with the value '{0}' already exists in the database.", ((Extension)DataContext).Number);
-                    UserPrompts.PopupMessage(this, prompt, "Duplicates Not Allowed");
-                    break;
-
-                case MySql.Data.MySqlClient.MySqlErrorCode.NoDefaultForField:
-                    UserPrompts.PopupMessage(this, ex.Message, "Required Field Empty");
-                    break;
-
-                case MySql.Data.MySqlClient.MySqlErrorCode.DataTooLong:
-                    UserPrompts.PopupMessage(this, ex.Message, "Data Too Long");
-                    break;
-
-                case MySql.Data.MySqlClient.MySqlErrorCode.UnableToConnectToHost:
-                    await UserPrompts.PopupDialog(this, "Could not connect to the server.", "Connection Lost", DialogButtons.Default);
-                    this.Close();
-                    break;
-
-                default:
-                    UserPrompts.PopupMessage(this, ex.Message, "Unexpected Database Error!");
-                    break;
-            }
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
@@ -250,28 +228,6 @@ namespace PhoneDirectoryWPF.UI
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteExtension();
-        }
-
-        private void EditWindow_ContentRendered(object sender, EventArgs e)
-        {
-            // If content is rendered before the data context has been populated
-            // display a progress spinner until it has been.
-            if (!isNew && ((Extension)this.DataContext).Number == null)
-            {
-                FieldGroupBox.IsEnabled = false;
-                loadingSpinner.Wait();
-            }
-        }
-
-        private void EditWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            // If the datacontext is populated with a valid extension,
-            // hide the progress spinner and enable the fields.
-            if (((Extension)this.DataContext).Number != null && !isNew)
-            {
-                FieldGroupBox.IsEnabled = true;
-                loadingSpinner.Hide();
-            }
         }
     }
 }

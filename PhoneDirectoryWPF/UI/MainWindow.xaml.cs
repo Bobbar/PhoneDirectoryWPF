@@ -213,14 +213,30 @@ namespace PhoneDirectoryWPF.UI
             resultListView.ItemsSource = results;
         }
 
-        private void EditExtension(Extension extension)
+        private async void EditExtension(Extension extension)
         {
             if (extension == null)
                 return;
 
             SecurityFunctions.CheckForAccess(SecurityGroups.Modify);
 
-            var editWindow = new EditWindow(extension);
+            Extension remoteExtension;
+
+            using (new WaitSpinner(this, "Loading extension...", 150))
+            {
+                try
+                {
+                    remoteExtension = (Extension)await extension.FromDatabaseAsync();
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    ExceptionHandler.MySqlException(this, ex);
+
+                    return;
+                }
+            }
+
+            var editWindow = new EditWindow(extension, remoteExtension);
             editWindow.ExtensionDeleted -= EditWindow_ExtensionDeleted;
             editWindow.ExtensionDeleted += EditWindow_ExtensionDeleted;
             editWindow.ShowDialog();

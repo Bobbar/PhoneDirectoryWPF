@@ -18,13 +18,13 @@ namespace PhoneDirectoryWPF
 
             base.OnStartup(e);
         }
-       
-        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+
+        private async void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             if (e.Exception is InvalidAccessException)
             {
                 var iae = (InvalidAccessException)e.Exception;
-                UserPrompts.PopupMessage(iae.Message, "Access Denied");
+                await UserPrompts.PopupMessage(iae.Message, "Access Denied");
                 e.Handled = true;
             }
             else if (e.Exception is MySql.Data.MySqlClient.MySqlException)
@@ -42,8 +42,9 @@ namespace PhoneDirectoryWPF
             else
             {
                 Logging.Exception(e.Exception);
-                UserPrompts.PopupMessage(e.Exception.ToString(), "UNHANDLED ERROR!");
-                e.Handled = false;
+                await UserPrompts.PopupMessage(e.Exception.ToString(), "UNHANDLED ERROR!");
+                e.Handled = true;
+                Application.Current.Shutdown(-1);
             }
         }
 
