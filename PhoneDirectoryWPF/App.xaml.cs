@@ -24,7 +24,7 @@ namespace PhoneDirectoryWPF
             if (e.Exception is InvalidAccessException)
             {
                 var iae = (InvalidAccessException)e.Exception;
-                await UserPrompts.PopupMessage(iae.Message, "Access Denied");
+                UserPrompts.PopupMessage(iae.Message, "Access Denied");
                 e.Handled = true;
             }
             else if (e.Exception is MySql.Data.MySqlClient.MySqlException)
