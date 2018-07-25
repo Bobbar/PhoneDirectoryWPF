@@ -17,6 +17,14 @@
         MinWidth="594"
         Style="{StaticResource GlobalMaterialStyle}">
 
+    <Window.Resources>
+        <DataTemplate x:Key="EditButtonTemplate">
+            <Button Visibility="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"  ToolTip="Edit extension" Style="{StaticResource MaterialDesignFlatButton}" Margin="0" Height="16" Width="16" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="MenuItem_Click">
+                <materialDesign:PackIcon Kind="LeadPencil" Foreground="{DynamicResource SecondaryAccentBrush}" Height="17" Width="17"/>
+            </Button>
+        </DataTemplate>
+    </Window.Resources>
+
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
         <Grid>
             <Grid.RowDefinitions>
@@ -54,11 +62,6 @@
                                 <GridViewColumn Header="Department" Width="300" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
                             </GridView>
                         </ListView.View>
-                        <ListView.ContextMenu>
-                            <ContextMenu HasDropShadow="True">
-                                <MenuItem Header="Edit" Icon="{materialDesign:PackIcon Kind=Pencil}" Click="MenuItem_Click"/>
-                            </ContextMenu>
-                        </ListView.ContextMenu>
                     </ListView>
                 </GroupBox>
             </Grid>

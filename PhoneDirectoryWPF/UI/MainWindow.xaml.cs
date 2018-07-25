@@ -104,6 +104,10 @@ namespace PhoneDirectoryWPF.UI
                 WatchDogInstance.WatchDog.Start(false);
             }
 
+            // If current user can modify, add edit button column to grid.
+            if (SecurityFunctions.CanAccess(SecurityGroups.Delete) || SecurityFunctions.CanAccess(SecurityGroups.Modify))
+                AddEditButton();
+
             FieldsGrid.IsEnabled = true;
         }
 
@@ -261,6 +265,15 @@ namespace PhoneDirectoryWPF.UI
             editWindow.Show();
         }
 
+        private void AddEditButton()
+        {
+            var col = new GridViewColumn();
+            col.Width = 30;
+            col.CellTemplate = FindResource("EditButtonTemplate") as DataTemplate;
+            
+            resultGridView.Columns.Insert(0, col);
+        }
+
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
             extensionTextBox.Clear();
@@ -308,7 +321,12 @@ namespace PhoneDirectoryWPF.UI
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            EditExtension((Extension)resultListView.SelectedItem);
+            var data = ((FrameworkElement)e.OriginalSource).DataContext;
+
+            if (data != null && data is Extension)
+            {
+                EditExtension((Extension)data);
+            }
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
