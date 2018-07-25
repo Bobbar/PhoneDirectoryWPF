@@ -20,10 +20,6 @@ namespace PhoneDirectoryWPF.UI
             {
                 return ValidationResult.ValidResult;
             }
-
-            //return string.IsNullOrWhiteSpace((value ?? "").ToString())
-            //    ? new ValidationResult(false, "Field is required.")
-            //    : ValidationResult.ValidResult;
         }
     }
 }

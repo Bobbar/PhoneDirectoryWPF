@@ -49,9 +49,9 @@
                     <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick" KeyDown="resultListView_KeyDown">
                         <ListView.View>
                             <GridView x:Name="resultGridView" AllowsColumnReorder="False">
-                                <GridViewColumn Header="Extension" Width="100" DisplayMemberBinding="{Binding Number, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                                <GridViewColumn Header="Extension" Width="110" DisplayMemberBinding="{Binding Number, Converter={local:ExtensionConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
                                 <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
-                                <GridViewColumn Header="Department" Width="200" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                                <GridViewColumn Header="Department" Width="300" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
                             </GridView>
                         </ListView.View>
                         <ListView.ContextMenu>

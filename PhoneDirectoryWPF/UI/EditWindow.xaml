@@ -28,16 +28,16 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80*" />
-                        <ColumnDefinition Width="130*" />
+                        <ColumnDefinition Width="141*" />
                         <ColumnDefinition Width="270*" />
-                        <ColumnDefinition Width="285*" />
+                        <ColumnDefinition Width="274*" />
                         <ColumnDefinition Width="262*" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="idTextBox" IsEnabled="False" Margin="10,0,10,7" TextWrapping="Wrap" Grid.Column="0" IsReadOnly="True" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" Height="53" VerticalAlignment="Bottom" ToolTip="Auto Generated" />
-                    <TextBox x:Name="extensionTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" MaxLength="13">
+                    <TextBox x:Name="extensionTextBox" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,0,10,7" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" MaxLength="14">
                         <TextBox.Text>
                             <Binding Path="Number" 
-                                     Converter="{local:EmptyStringConverter}" 
+                                     Converter="{local:ExtensionConverter}" 
                                      Mode="TwoWay"
                                      NotifyOnTargetUpdated="True"
                                      NotifyOnSourceUpdated="True"
@@ -46,6 +46,7 @@
                                      FallbackValue="Extension">
                                 <Binding.ValidationRules>
                                     <local:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                                    <local:ValidExtensionValidationRule ValidatesOnTargetUpdated="True" ValidationStep="CommittedValue"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
