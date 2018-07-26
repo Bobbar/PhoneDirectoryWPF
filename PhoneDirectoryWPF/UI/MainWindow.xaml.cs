@@ -12,18 +12,40 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Windows.Media;
 
 namespace PhoneDirectoryWPF.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private PopupSpinner workingSpinner;
-
         private bool searchRunning = false;
         private bool searchNeeded = false;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public int SelectedScale
+        {
+            get
+            {
+                return UIScaling.CurrentScalePercent;
+            }
+
+            set
+            {
+                UIScaling.CurrentScalePercent = value;
+                OnPropertyChanged(nameof(SelectedScale));
+            }
+        }
 
         public MainWindow()
         {
@@ -33,6 +55,8 @@ namespace PhoneDirectoryWPF.UI
             workingSpinner = new PopupSpinner(resultListView);
 
             WatchDogInstance.WatchDog.CacheStatusChanged += WatchDog_CacheStatusChanged;
+
+            UIScaling.AddScaleTarget(RootGrid);
         }
 
         private void WatchDog_CacheStatusChanged(object sender, bool e)
@@ -270,7 +294,7 @@ namespace PhoneDirectoryWPF.UI
             var col = new GridViewColumn();
             col.Width = 30;
             col.CellTemplate = FindResource("EditButtonTemplate") as DataTemplate;
-            
+
             resultGridView.Columns.Insert(0, col);
         }
 
@@ -332,6 +356,18 @@ namespace PhoneDirectoryWPF.UI
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             InitConnection();
+        }
+
+        private void ScaleDownButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            UIScaling.ScaleDown();
+            SelectedScale = UIScaling.CurrentScalePercent;
+        }
+
+        private void ScaleUpButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            UIScaling.ScaleUp();
+            SelectedScale = UIScaling.CurrentScalePercent;
         }
     }
 }

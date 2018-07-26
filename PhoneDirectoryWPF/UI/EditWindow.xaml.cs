@@ -65,6 +65,7 @@ namespace PhoneDirectoryWPF.UI
             this.DataContext = extensionContext;
 
             InitSuggestions();
+            UIScaling.AddScaleTarget(RootGrid);
         }
 
         public EditWindow(Extension localExtension, Extension remoteExtension)
@@ -78,6 +79,8 @@ namespace PhoneDirectoryWPF.UI
             this.DataContext = remoteExtension;
 
             InitSuggestions();
+            UIScaling.AddScaleTarget(RootGrid);
+
         }
 
         private async void InitSuggestions()

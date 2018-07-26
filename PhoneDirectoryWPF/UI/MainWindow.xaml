@@ -5,69 +5,78 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
+        xmlns:helpers="clr-namespace:PhoneDirectoryWPF.Helpers"
         mc:Ignorable="d"
-        Title="Phone Directory" 
-        Height="702" 
-        Width="789"  
-        FontSize="16" 
-        WindowStartupLocation="CenterScreen" 
-        ContentRendered="Window_ContentRendered" 
+        Title="Phone Directory"
+        Height="702"
+        Width="899"
+        FontSize="16"
+        WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered"
         ResizeMode="CanResizeWithGrip"
         MinHeight="367"
         MinWidth="594"
+        Name="MyMainWindow"
         Style="{StaticResource GlobalMaterialStyle}">
 
     <Window.Resources>
         <DataTemplate x:Key="EditButtonTemplate">
             <Button Visibility="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"  ToolTip="Edit extension" Style="{StaticResource MaterialDesignFlatButton}" Margin="0" Height="16" Width="16" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="MenuItem_Click">
-                <materialDesign:PackIcon Kind="LeadPencil" Foreground="{DynamicResource SecondaryAccentBrush}" Height="17" Width="17"/>
+                <materialDesign:PackIcon Kind="LeadPencil" Foreground="{DynamicResource SecondaryAccentBrush}" Height="17" Width="17" />
             </Button>
         </DataTemplate>
     </Window.Resources>
 
     <materialDesign:DialogHost Name="PopupDialogHost" Identifier="PopHostMain">
-        <Grid>
+        <Grid Name="RootGrid">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="26"/>
+                <RowDefinition />
+                <RowDefinition Height="26" />
             </Grid.RowDefinitions>
             <Grid Name="FieldsGrid" Margin="0,0" Grid.Column="0" IsEnabled="False">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="95*"/>
+                    <RowDefinition Height="95*" />
                 </Grid.RowDefinitions>
                 <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Search" Height="166" Margin="10,10,10,0" VerticalAlignment="Top">
                     <Grid Margin="4,5.607,0,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="49*"/>
-                            <RowDefinition Height="58*"/>
+                            <RowDefinition Height="49*" />
+                            <RowDefinition Height="58*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="142*"/>
-                            <ColumnDefinition Width="292*"/>
-                            <ColumnDefinition Width="261"/>
+                            <ColumnDefinition Width="142*" />
+                            <ColumnDefinition Width="292*" />
+                            <ColumnDefinition Width="261" />
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="searchField_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                        <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp"/>
-                        <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp"/>
-                        <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click"/>
-                        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click"/>
+                        <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="searchField_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
+                        <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
+                        <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click" />
+                        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click" />
                     </Grid>
                 </GroupBox>
                 <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox1" Header="Results" Margin="10,181,10,5">
                     <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick" KeyDown="resultListView_KeyDown">
                         <ListView.View>
                             <GridView x:Name="resultGridView" AllowsColumnReorder="False">
-                                <GridViewColumn Header="Extension" Width="110" DisplayMemberBinding="{Binding Number, Converter={local:ExtensionConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
-                                <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
-                                <GridViewColumn Header="Department" Width="300" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                                <GridViewColumn Header="Extension" Width="110" DisplayMemberBinding="{Binding Number, Converter={local:ExtensionConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                                <GridViewColumn Header="Extension Name" Width="200" DisplayMemberBinding="{Binding User, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                                <GridViewColumn Header="Department" Width="300" DisplayMemberBinding="{Binding Department, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </GroupBox>
             </Grid>
-            <StatusBar Background="{StaticResource MaterialDesignDarkBackground}" Foreground="{StaticResource MaterialDesignLightBackground}" Grid.Row="1">
-                <StatusBarItem HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
-                    <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,10,0" HorizontalAlignment="Center">
+            <StatusBar Padding="0,0,0,5" Background="{StaticResource MaterialDesignDarkBackground}" Foreground="{StaticResource MaterialDesignLightBackground}" Grid.Row="1" Margin="10,0,11,0">
+                <StatusBarItem Padding="0">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                        <materialDesign:PackIcon Name="ScaleDownButton" VerticalAlignment="Center" Kind="MinusCircle" Cursor="Hand" MouseDown="ScaleDownButton_MouseDown" />
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0" Text="{Binding SelectedScale, ElementName=MyMainWindow, StringFormat={}{0}%}"></TextBlock>
+                        <materialDesign:PackIcon Name="ScaleUpButton" VerticalAlignment="Center" Kind="PlusCircle" Cursor="Hand" MouseDown="ScaleUpButton_MouseDown" />
+                    </StackPanel>
+                </StatusBarItem>
+                <StatusBarItem Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
+                    <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <materialDesign:PackIcon Name="ConnectStatusIcon" Kind="LanDisconnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
                         <TextBlock Name="ConnectStatusText" FontSize="13" Text="Connecting..." Margin="4,0,0,0"></TextBlock>
                     </StackPanel>

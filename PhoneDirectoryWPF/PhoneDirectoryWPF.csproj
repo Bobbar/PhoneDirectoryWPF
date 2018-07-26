@@ -130,6 +130,7 @@
     <Compile Include="Containers\LocalUser.cs" />
     <Compile Include="Data\Classes\CacheTable.cs" />
     <Compile Include="Helpers\ExceptionHandler.cs" />
+    <Compile Include="Helpers\UIScaling.cs" />
     <Compile Include="UI\Converters\ExtensionConverter.cs" />
     <Compile Include="UI\Converters\EmptyStringConverter.cs" />
     <Compile Include="Data\Functions\CacheFunctions.cs" />
