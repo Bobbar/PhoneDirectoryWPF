@@ -56,6 +56,8 @@ namespace PhoneDirectoryWPF.Helpers
             popup.StaysOpen = false;
             popup.AllowsTransparency = false;
             popup.PlacementTarget = target;
+
+            UIScaling.AddScaleTarget(popup);
         }
 
         private void AttachEvents()
@@ -84,6 +86,7 @@ namespace PhoneDirectoryWPF.Helpers
         private void RefreshItems()
         {
             view.Clear();
+            popList.Width = target.ActualWidth;
 
             var searchText = target.Text.Trim();
 

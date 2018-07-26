@@ -52,6 +52,8 @@ namespace PhoneDirectoryWPF.Helpers
             popup.PlacementTarget = target;
             popup.Placement = PlacementMode.Center;
 
+            UIScaling.AddScaleTarget(popup);
+            
             var targetWindow = Window.GetWindow(target);
             targetWindow.LocationChanged += PopupSpinner_LocationChanged;
             targetWindow.SizeChanged += TargetWindow_SizeChanged;

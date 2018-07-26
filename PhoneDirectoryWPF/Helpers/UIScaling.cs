@@ -6,16 +6,11 @@ namespace PhoneDirectoryWPF.Helpers
 {
     public static class UIScaling
     {
-        //private static List<int> scaleValues = new List<int> { 50, 75, 100, 125, 150, 175, 200 };
-        private static List<int> scaleValues = new List<int> { 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200 };
-
-        private static int currentScaleIndex = 5;
-
         public static List<int> ScaleValues { get { return scaleValues; } }
 
+        private static List<int> scaleValues = new List<int> { 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200 };
+        private static int currentScaleIndex = 5;
         private static List<FrameworkElement> scaleTargets = new List<FrameworkElement>();
-
-        //  private static float currentScale = 1.0F;
         private static int currentScalePercent = 100;
 
         public static int CurrentScalePercent
