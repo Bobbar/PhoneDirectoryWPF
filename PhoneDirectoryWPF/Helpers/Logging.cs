@@ -5,8 +5,7 @@ namespace PhoneDirectoryWPF.Helpers
 {
     public static class Logging
     {
-        private static string logDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PhoneDirectory\logs\";
-        private static string logFullPath = logDir + "log.log";
+        private static string logFullPath = Paths.Log + "log.log";
 
         public static void Logger(string message)
         {
@@ -15,8 +14,8 @@ namespace PhoneDirectoryWPF.Helpers
                 int maxLogSizeKiloBytes = 500;
                 string dateStamp = DateTime.Now.ToString();
 
-                if (!Directory.Exists(logDir))
-                    Directory.CreateDirectory(logDir);
+                if (!Directory.Exists(Paths.Log))
+                    Directory.CreateDirectory(Paths.Log);
 
                 if (!File.Exists(logFullPath))
                 {

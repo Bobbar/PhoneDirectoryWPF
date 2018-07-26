@@ -128,9 +128,13 @@
     </ApplicationDefinition>
     <Compile Include="Containers\AccessGroup.cs" />
     <Compile Include="Containers\LocalUser.cs" />
+    <Compile Include="Containers\Setting.cs" />
     <Compile Include="Data\Classes\CacheTable.cs" />
+    <Compile Include="Data\Serializer.cs" />
     <Compile Include="Helpers\ExceptionHandler.cs" />
+    <Compile Include="Helpers\Paths.cs" />
     <Compile Include="Helpers\UIScaling.cs" />
+    <Compile Include="Helpers\UserSettings.cs" />
     <Compile Include="UI\Converters\ExtensionConverter.cs" />
     <Compile Include="UI\Converters\EmptyStringConverter.cs" />
     <Compile Include="Data\Functions\CacheFunctions.cs" />

@@ -57,6 +57,8 @@ namespace PhoneDirectoryWPF.UI
             WatchDogInstance.WatchDog.CacheStatusChanged += WatchDog_CacheStatusChanged;
 
             UIScaling.AddScaleTarget(RootGrid);
+
+            RestoreUserSettings();
         }
 
         private void WatchDog_CacheStatusChanged(object sender, bool e)
@@ -133,6 +135,13 @@ namespace PhoneDirectoryWPF.UI
                 AddEditButton();
 
             FieldsGrid.IsEnabled = true;
+        }
+
+        private void RestoreUserSettings()
+        {
+            var uiScale = UserSettings.GetSetting(AppSettings.UIScale);
+            if (uiScale != null)
+                SelectedScale = (int)uiScale;
         }
 
         private void InitDBControls()
