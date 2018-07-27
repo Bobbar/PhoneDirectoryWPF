@@ -10,7 +10,7 @@ namespace PhoneDirectoryWPF.Helpers
         public static List<int> ScaleValues { get { return scaleValues; } }
 
         private static List<int> scaleValues = new List<int> { 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180 };
-        private static int currentScaleIndex = 5;
+        private static int currentScaleIndex = 10;
         private static int currentScalePercent = 0;
 
         public static int CurrentScalePercent
