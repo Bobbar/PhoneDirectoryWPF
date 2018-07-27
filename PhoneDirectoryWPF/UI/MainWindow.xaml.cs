@@ -96,12 +96,13 @@ namespace PhoneDirectoryWPF.UI
             if (cacheMode)
             {
                 ConnectStatusIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LanDisconnect;
-                ConnectStatusText.Text = "Offline Mode";
+                ConnectStatusText.Text = "Offline";
             }
             else
             {
                 ConnectStatusIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.LanConnect;
                 ConnectStatusText.Text = "Connected";
+                AddEditButton();
             }
         }
 
@@ -147,8 +148,7 @@ namespace PhoneDirectoryWPF.UI
             }
 
             // If current user can modify, add edit button column to grid.
-            if (SecurityFunctions.CanAccess(SecurityGroups.Delete) || SecurityFunctions.CanAccess(SecurityGroups.Modify))
-                AddEditButton();
+            AddEditButton();
 
             FieldsGrid.IsEnabled = true;
         }
@@ -325,11 +325,17 @@ namespace PhoneDirectoryWPF.UI
 
         private void AddEditButton()
         {
-            var col = new GridViewColumn();
-            col.Width = 30;
-            col.CellTemplate = FindResource("EditButtonTemplate") as DataTemplate;
+            if (SecurityFunctions.CanAccess(SecurityGroups.Delete) || SecurityFunctions.CanAccess(SecurityGroups.Modify))
+            {
+                if (resultGridView.Columns.Count <= 3)
+                {
+                    var col = new GridViewColumn();
+                    col.Width = 30;
+                    col.CellTemplate = FindResource("EditButtonTemplate") as DataTemplate;
 
-            resultGridView.Columns.Insert(0, col);
+                    resultGridView.Columns.Insert(0, col);
+                }
+            }
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
