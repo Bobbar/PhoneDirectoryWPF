@@ -18,14 +18,13 @@
 
             <Style x:Key="GlobalMaterialStyle">
                 <Setter Property="Window.Background" Value="{DynamicResource MaterialDesignPaper}"/>
-                <Setter Property="TextElement.Foreground" Value="{StaticResource MaterialDesignBody}"/>
-                <Setter Property="TextElement.FontWeight" Value="Regular"/>
-                <Setter Property="TextElement.FontSize" Value="13"/>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                <Setter Property="TextElement.FontWeight" Value="Medium"/>
+                <!--<Setter Property="TextElement.FontSize" Value="13"/>-->
                 <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
                 <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
-                <Setter Property="Control.Background" Value="{StaticResource MaterialDesignDarkBackground}"/>
-                <Setter Property="Control.Foreground" Value="{StaticResource MaterialDesignLightBackground}"/>
-                <Setter Property="Control.FontFamily" Value="{StaticResource MaterialDesignFont}"/>
+                <Setter Property="Control.FontFamily" Value="{DynamicResource MaterialDesignFont}"/>
+                <Setter Property="Control.FontWeight" Value="Medium"/>
             </Style>
 
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"></Style>

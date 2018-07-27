@@ -9,16 +9,16 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="PhoneDirectoryWPF.UI.EditWindow"
         mc:Ignorable="d"
         x:Name="MyEditWindow"
-        Style="{StaticResource GlobalMaterialStyle}"
-        Title="Edit" Height="352" Width="1032.95" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" SizeToContent="Height">
+        Style="{DynamicResource GlobalMaterialStyle}"
+        Title="Edit" Height="362" Width="1032.95" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <Containers:Extension />
     </Window.DataContext>
 
-    <materialDesign:DialogHost x:Name="PopupDialogHost" Identifier="PopHost">
+    <materialDesign:DialogHost x:Name="PopupDialogHost" Identifier="PopHost" Style="{DynamicResource GlobalMaterialStyle}">
         <Grid Name="RootGrid">
-            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
+            <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="41*"/>
@@ -72,18 +72,18 @@
                     </Grid>
                     <Grid x:Name="ButtonGrid" Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="62*"/>
+                            <ColumnDefinition Width="100*"/>
                             <ColumnDefinition Width="205*"/>
-                            <ColumnDefinition Width="62*"/>
+                            <ColumnDefinition Width="100*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Margin="20">
+                        <Grid Grid.Column="0" Margin="40,20,20,20">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
                                 <Button x:Name="saveButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Save" Height="Auto" VerticalAlignment="Center" Click="saveButton_Click" Margin="0,0,0,5" />
                                 <Button x:Name="addButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Add" Height="Auto" VerticalAlignment="Center" Click="addButton_Click" Margin="0" />
                                 <Button x:Name="deleteButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Delete" Height="Auto" VerticalAlignment="Center" Click="deleteButton_Click" />
                             </StackPanel>
                         </Grid>
-                        <Grid Margin="20" Grid.Column="2">
+                        <Grid Margin="20,20,40,20" Grid.Column="2">
                             <Button x:Name="cancelButton" Content="Close" Click="cancelButton_Click" Height="Auto" Width="Auto"/>
                         </Grid>
 

@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using MaterialDesignThemes.Wpf;
+using System.Windows.Media;
 
 namespace PhoneDirectoryWPF.Helpers
 {
@@ -45,7 +47,8 @@ namespace PhoneDirectoryWPF.Helpers
         {
             popList = new ListBox();
             popList.Width = target.ActualWidth;
-            popList.ItemContainerStyle = new Style(typeof(ListBoxItem));
+            popList.Background = Application.Current.FindResource("MaterialDesignPaper") as Brush;
+            popList.Foreground = Application.Current.FindResource("MaterialDesignBody") as Brush;
             popList.ItemsSource = view;
         }
 
@@ -86,7 +89,11 @@ namespace PhoneDirectoryWPF.Helpers
         private void RefreshItems()
         {
             view.Clear();
+
+            // Refresh width and colors to react to scale and theme changes.
             popList.Width = target.ActualWidth;
+            popList.Background = Application.Current.FindResource("MaterialDesignPaper") as Brush;
+            popList.Foreground = Application.Current.FindResource("MaterialDesignBody") as Brush;
 
             var searchText = target.Text.Trim();
 

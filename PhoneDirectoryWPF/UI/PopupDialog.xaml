@@ -6,8 +6,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:PhoneDirectoryWPF.UI"
-             Style="{StaticResource GlobalMaterialStyle}"
+             xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              mc:Ignorable="d" Width="498" Height="220">
+    
+    <UserControl.Style>
+        <Style>
+            <Setter Property="Control.Background" Value="{StaticResource MaterialDesignPaper}"/>
+            <Setter Property="Control.Foreground" Value="{StaticResource MaterialDesignBody}"/>
+            <Setter Property="TextElement.FontWeight" Value="Medium"/>
+            <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="Auto"/>
+        </Style>
+    </UserControl.Style>
 
     <Grid Name="PopupContent">
         <GroupBox materialDesign:ShadowAssist.ShadowDepth="Depth4" Name="MessageHeader" Header="Error" Margin="10" FontSize="16" FontWeight="Medium">

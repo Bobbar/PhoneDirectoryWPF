@@ -25,6 +25,7 @@ namespace PhoneDirectoryWPF.UI
         private PopupSpinner workingSpinner;
         private bool searchRunning = false;
         private bool searchNeeded = false;
+        private bool isDark = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,6 +45,21 @@ namespace PhoneDirectoryWPF.UI
             {
                 UIScaling.CurrentScalePercent = value;
                 OnPropertyChanged(nameof(SelectedScale));
+            }
+        }
+
+        public bool IsDarkProperty
+        {
+            get
+            {
+                return isDark;
+            }
+
+            set
+            {
+                isDark = value;
+                UITheme.SetDark(value);
+                OnPropertyChanged(nameof(IsDarkProperty));
             }
         }
 
@@ -137,11 +153,20 @@ namespace PhoneDirectoryWPF.UI
             FieldsGrid.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Restore user settings from settings file.
+        /// </summary>
         private void RestoreUserSettings()
         {
+            // Restore UI scale.
             var uiScale = UserSettings.GetSetting(AppSettings.UIScale);
             if (uiScale != null)
                 SelectedScale = (int)uiScale;
+
+            // Restore UI dark/light setting.
+            var uiDark = UserSettings.GetSetting(AppSettings.UIDark);
+            if (uiDark != null)
+                IsDarkProperty = (bool)uiDark;
         }
 
         private void InitDBControls()
