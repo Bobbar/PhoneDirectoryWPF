@@ -70,15 +70,15 @@
             <StatusBar Padding="0,0,0,5" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" Grid.Row="1" Margin="10,0,11,0">
                 <StatusBarItem Padding="0">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                        <materialDesign:PackIcon ToolTip="Zoom Out" Name="ScaleDownButton" VerticalAlignment="Center" Kind="MinusCircle" Cursor="Hand" MouseDown="ScaleDownButton_MouseDown" />
+                        <materialDesign:PackIcon Background="Transparent" ToolTip="Zoom Out" Name="ScaleDownButton" VerticalAlignment="Center" Kind="MinusCircle" Cursor="Hand" MouseDown="ScaleDownButton_MouseDown" />
                         <TextBlock ToolTip="Zoom" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0" Text="{Binding SelectedScale, ElementName=MyMainWindow, StringFormat={}{0}%}"></TextBlock>
-                        <materialDesign:PackIcon ToolTip="Zoom In" Name="ScaleUpButton" VerticalAlignment="Center" Kind="PlusCircle" Cursor="Hand" MouseDown="ScaleUpButton_MouseDown" />
+                        <materialDesign:PackIcon Background="Transparent" ToolTip="Zoom In" Name="ScaleUpButton" VerticalAlignment="Center" Kind="PlusCircle" Cursor="Hand" MouseDown="ScaleUpButton_MouseDown" />
                     </StackPanel>
                 </StatusBarItem>
                 <StatusBarItem Padding="0">
                     <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
                         <TextBlock Margin="0,0,5,0" >Light</TextBlock>
-                        <ToggleButton ToolTip="Toggle dark or light theme" Name="DarkLightToggle" Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding IsDarkProperty, ElementName=MyMainWindow}"/>
+                        <ToggleButton Cursor="Hand" ToolTip="Toggle dark or light theme" Name="DarkLightToggle" Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding IsDarkProperty, ElementName=MyMainWindow}"/>
                         <TextBlock Margin="5,0,0,0" >Dark</TextBlock>
                     </StackPanel>
                 </StatusBarItem>
