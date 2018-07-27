@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace PhoneDirectoryWPF.Helpers
@@ -61,13 +55,25 @@ namespace PhoneDirectoryWPF.Helpers
         private void PerformScaling(int scale)
         {
             var scaleDecimal = scale * 0.01F;
+
             rootElement.LayoutTransform = new ScaleTransform(scaleDecimal, scaleDecimal, 0, 0);
 
             if (parentWindow != null && autoSize)
             {
                 parentWindow.Height = initialWindowSize.Height * scaleDecimal;
                 parentWindow.Width = initialWindowSize.Width * scaleDecimal;
+                CenterWindowOnScreen();
             }
+        }
+
+        private void CenterWindowOnScreen()
+        {
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = parentWindow.Width;
+            double windowHeight = parentWindow.Height;
+            parentWindow.Left = (screenWidth / 2) - (windowWidth / 2);
+            parentWindow.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
         private void ParentWindow_Loaded(object sender, RoutedEventArgs e)
