@@ -22,7 +22,7 @@
     <Window.Resources>
         <DataTemplate x:Key="EditButtonTemplate">
             <Button Visibility="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"  ToolTip="Edit extension" Style="{StaticResource MaterialDesignFlatButton}" Margin="0" Height="16" Width="16" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="MenuItem_Click">
-                <materialDesign:PackIcon Kind="LeadPencil" Foreground="{DynamicResource SecondaryAccentBrush}" Height="17" Width="17" />
+                <materialDesign:PackIcon Kind="LeadPencil" Foreground="{DynamicResource MaterialDesignBody}" Height="17" Width="17" />
             </Button>
         </DataTemplate>
     </Window.Resources>
