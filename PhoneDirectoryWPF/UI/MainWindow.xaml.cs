@@ -320,7 +320,7 @@ namespace PhoneDirectoryWPF.UI
             SecurityFunctions.CheckForAccess(SecurityGroups.Add);
 
             var editWindow = new EditWindow();
-            editWindow.Show();
+            editWindow.ShowDialog();
         }
 
         private void AddEditButton()
