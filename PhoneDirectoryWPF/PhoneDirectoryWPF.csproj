@@ -133,6 +133,7 @@
     <Compile Include="Data\Serializer.cs" />
     <Compile Include="Helpers\ExceptionHandler.cs" />
     <Compile Include="Helpers\Paths.cs" />
+    <Compile Include="Helpers\Theme\UIScaler.cs" />
     <Compile Include="Helpers\Theme\UIScaling.cs" />
     <Compile Include="Helpers\Theme\UITheme.cs" />
     <Compile Include="Helpers\UserSettings.cs" />

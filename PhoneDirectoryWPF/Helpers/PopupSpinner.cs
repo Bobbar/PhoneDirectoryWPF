@@ -52,7 +52,7 @@ namespace PhoneDirectoryWPF.Helpers
             popup.PlacementTarget = target;
             popup.Placement = PlacementMode.Center;
 
-            UIScaling.AddScaleTarget(popup);
+            new UIScaler(popup);
             
             var targetWindow = Window.GetWindow(target);
             targetWindow.LocationChanged += PopupSpinner_LocationChanged;

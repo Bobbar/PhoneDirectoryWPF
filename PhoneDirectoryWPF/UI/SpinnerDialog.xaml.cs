@@ -33,7 +33,7 @@ namespace PhoneDirectoryWPF.UI
         public SpinnerDialog()
         {
             InitializeComponent();
-            Helpers.UIScaling.AddScaleTarget(this);
+            new Helpers.UIScaler(this);
         }
 
         public SpinnerDialog(DialogHost host)
@@ -41,7 +41,7 @@ namespace PhoneDirectoryWPF.UI
             this.dialogHost = host;
             this.dialogHost.DialogOpened += DialogHost_DialogOpened;
             InitializeComponent();
-            Helpers.UIScaling.AddScaleTarget(this);
+            new Helpers.UIScaler(this);
         }
 
         public void DialogHost_DialogOpened(object sender, DialogOpenedEventArgs eventArgs)

@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         x:Name="MyEditWindow"
         Style="{DynamicResource GlobalMaterialStyle}"
-        Title="Edit" Height="362" Width="1032.95" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="Edit" Height="347" Width="924" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <Containers:Extension />
@@ -21,14 +21,10 @@
             <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="FieldGroupBox" Header="Edit Extension" Margin="10" FontSize="16">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="41*"/>
-                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="139*"/>
+                        <RowDefinition Height="107*"/>
                     </Grid.RowDefinitions>
-                    <Grid x:Name="FieldGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="79*"/>
-                            <RowDefinition Height="83*"/>
-                        </Grid.RowDefinitions>
+                    <Grid x:Name="FieldGrid" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80*" />
                             <ColumnDefinition Width="141*" />
@@ -68,22 +64,22 @@
                         </TextBox>
                         <TextBox x:Name="lastNameTextBox" TextWrapping="NoWrap" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,-1,10,0" VerticalAlignment="Top" Grid.Column="3" materialDesign:HintAssist.Hint="Last Name (Optional)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding LastName, Converter={local:EmptyStringConverter}, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="45"/>
                         <TextBox x:Name="departmentTextBox" TextWrapping="NoWrap" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,-1,10,0" VerticalAlignment="Top" Grid.Column="4" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Department, Converter={local:EmptyStringConverter}, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
-                        <TextBox x:Name="extensionNameTextBox" TextWrapping="NoWrap" IsEnabled="False" Margin="10,5,10,0" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Height="54" VerticalAlignment="Top" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Converter={local:EmptyStringConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ToolTip="Auto Generated" />
+                        <TextBox x:Name="extensionNameTextBox" TextWrapping="NoWrap" IsEnabled="False" Margin="9,80,11,0" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Height="54" VerticalAlignment="Top" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Converter={local:EmptyStringConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ToolTip="Auto Generated" />
                     </Grid>
                     <Grid x:Name="ButtonGrid" Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100*"/>
-                            <ColumnDefinition Width="205*"/>
-                            <ColumnDefinition Width="100*"/>
+                            <ColumnDefinition Width="200*"/>
+                            <ColumnDefinition Width="496*"/>
+                            <ColumnDefinition Width="200*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Margin="40,20,20,20">
+                        <Grid Grid.Column="0" Margin="20,10,20,10">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                <Button x:Name="saveButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Save" Height="Auto" VerticalAlignment="Center" Click="saveButton_Click" Margin="0,0,0,5" />
-                                <Button x:Name="addButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Add" Height="Auto" VerticalAlignment="Center" Click="addButton_Click" Margin="0" />
-                                <Button x:Name="deleteButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Delete" Height="Auto" VerticalAlignment="Center" Click="deleteButton_Click" />
+                                <Button x:Name="saveButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Save" Height="30" VerticalAlignment="Center" Click="saveButton_Click" Margin="0,0,0,5" />
+                                <Button x:Name="addButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Add" Height="30" VerticalAlignment="Center" Click="addButton_Click" Margin="0" />
+                                <Button x:Name="deleteButton" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Content="Delete" Height="30" VerticalAlignment="Center" Click="deleteButton_Click" />
                             </StackPanel>
                         </Grid>
-                        <Grid Margin="20,20,40,20" Grid.Column="2">
+                        <Grid Margin="20" Grid.Column="2">
                             <Button x:Name="cancelButton" Content="Close" Click="cancelButton_Click" Height="Auto" Width="Auto"/>
                         </Grid>
 

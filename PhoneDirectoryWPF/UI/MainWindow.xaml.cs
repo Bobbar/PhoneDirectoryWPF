@@ -72,7 +72,7 @@ namespace PhoneDirectoryWPF.UI
 
             WatchDogInstance.WatchDog.CacheStatusChanged += WatchDog_CacheStatusChanged;
 
-            UIScaling.AddScaleTarget(RootGrid);
+            new UIScaler(this, RootGrid, false);
 
             RestoreUserSettings();
         }

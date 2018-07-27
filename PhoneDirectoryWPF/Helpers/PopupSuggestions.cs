@@ -46,7 +46,7 @@ namespace PhoneDirectoryWPF.Helpers
         private void InitListControl()
         {
             popList = new ListBox();
-            popList.Width = target.ActualWidth;
+            popList.HorizontalContentAlignment = HorizontalAlignment.Stretch;
             popList.Background = Application.Current.FindResource("MaterialDesignPaper") as Brush;
             popList.Foreground = Application.Current.FindResource("MaterialDesignBody") as Brush;
             popList.ItemsSource = view;
@@ -59,8 +59,9 @@ namespace PhoneDirectoryWPF.Helpers
             popup.StaysOpen = false;
             popup.AllowsTransparency = false;
             popup.PlacementTarget = target;
+            popup.Placement = PlacementMode.Bottom;
 
-            UIScaling.AddScaleTarget(popup);
+            new UIScaler(popup);
         }
 
         private void AttachEvents()
@@ -90,13 +91,13 @@ namespace PhoneDirectoryWPF.Helpers
         {
             view.Clear();
 
-            // Refresh width and colors to react to scale and theme changes.
-            popList.Width = target.ActualWidth;
+            // Refresh colors to react to theme changes.
             popList.Background = Application.Current.FindResource("MaterialDesignPaper") as Brush;
             popList.Foreground = Application.Current.FindResource("MaterialDesignBody") as Brush;
 
             var searchText = target.Text.Trim();
 
+            // Iterate the items and only add matching results to the view.
             foreach (var item in items)
             {
                 var itemString = item.ToString();
@@ -109,6 +110,7 @@ namespace PhoneDirectoryWPF.Helpers
                 }
             }
 
+            // Only display the popup if we have data.
             if (view.Count > 0)
             {
                 Show();
@@ -116,6 +118,24 @@ namespace PhoneDirectoryWPF.Helpers
             else
             {
                 Hide();
+            }
+
+
+            // Set the popup list width to "Auto" and update the layout to resize it to the contents.
+            popList.Width = Double.NaN;
+            popList.UpdateLayout();
+
+            // If the list is wider than the target control,
+            // set the popup offset to align it to the left
+            // size of the target with the list overflowing to the right.
+            if (popList.ActualWidth > target.ActualWidth)
+            {
+                popup.HorizontalOffset = popList.ActualWidth - target.ActualWidth;
+            }
+            else // Otherwise set the offset to zero and set the list width to match the target.
+            {
+                popup.HorizontalOffset = 0;
+                popList.Width = target.ActualWidth;
             }
         }
 

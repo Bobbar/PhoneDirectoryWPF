@@ -26,7 +26,7 @@ namespace PhoneDirectoryWPF.UI
             MessageText.Text = message;
             MessageHeader.Header = header;
             SetupButtons(buttons);
-            Helpers.UIScaling.AddScaleTarget(this);
+            new Helpers.UIScaler(this);
         }
 
         private void SetupButtons(DialogButtons buttons)
