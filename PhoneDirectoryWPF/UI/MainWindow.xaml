@@ -33,12 +33,12 @@
                 <RowDefinition />
                 <RowDefinition Height="26" />
             </Grid.RowDefinitions>
-            <Grid Name="FieldsGrid" Margin="0,0" Grid.Column="0" IsEnabled="False">
+            <Grid Name="FieldsGrid" Grid.Column="0" IsEnabled="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="95*" />
                 </Grid.RowDefinitions>
                 <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox" Header="Search" Height="166" Margin="10,10,10,0" VerticalAlignment="Top">
-                    <Grid Margin="4,5.607,0,0">
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="49*" />
                             <RowDefinition Height="58*" />
@@ -48,7 +48,7 @@
                             <ColumnDefinition Width="292*" />
                             <ColumnDefinition Width="261" />
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="extensionTextBox" Height="42" Margin="12,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="searchField_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox x:Name="extensionTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="searchField_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
                         <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
                         <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click" />
@@ -56,7 +56,7 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox  Style="{StaticResource MaterialDesignCardGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth4" x:Name="groupBox1" Header="Results" Margin="10,181,10,5">
-                    <ListView x:Name="resultListView" Margin="0,0,0,3" AlternationCount="1" MouseDoubleClick="resultListView_MouseDoubleClick" KeyDown="resultListView_KeyDown">
+                    <ListView x:Name="resultListView" MouseDoubleClick="resultListView_MouseDoubleClick" KeyDown="resultListView_KeyDown">
                         <ListView.View>
                             <GridView x:Name="resultGridView" AllowsColumnReorder="False">
                                 <GridViewColumn Header="Extension" Width="110" DisplayMemberBinding="{Binding Number, Converter={local:ExtensionConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
@@ -83,7 +83,7 @@
                     </StackPanel>
                 </StatusBarItem>
                 <StatusBarItem Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
-                    <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <materialDesign:PackIcon Name="ConnectStatusIcon" Kind="LanDisconnect" VerticalAlignment="Stretch"></materialDesign:PackIcon>
                         <TextBlock Name="ConnectStatusText" FontSize="13" Text="Connecting..." Margin="4,0,0,0"></TextBlock>
                     </StackPanel>

@@ -67,7 +67,27 @@ namespace PhoneDirectoryWPF.Helpers
             {
                 parentWindow.Height = initialWindowSize.Height * scaleDecimal;
                 parentWindow.Width = initialWindowSize.Width * scaleDecimal;
+                CenterWindowOnScreen();
             }
+        }
+
+        private void CenterWindowOnScreen()
+        {
+            // Non screen dependent centering. Hopefully.
+            var curLeft = parentWindow.Left;
+            var scaleLeft = curLeft * currentScale * 0.01F;
+            var diffLeftAbs = Math.Abs(scaleLeft - curLeft);
+
+            if (scaleLeft > curLeft)
+            {
+                parentWindow.Left = curLeft - diffLeftAbs;
+            }
+            else if (scaleLeft < curLeft)
+            {
+                parentWindow.Left = curLeft + diffLeftAbs;
+            }
+
+            // TODO: Center height. But doesn't really seem to be needed right now, however.
         }
 
         private void ParentWindow_Loaded(object sender, RoutedEventArgs e)
