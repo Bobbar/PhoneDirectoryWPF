@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         x:Name="MyEditWindow"
         Style="{DynamicResource GlobalMaterialStyle}"
-        Title="Edit" Height="347" Width="924" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="Edit" Height="347" Width="1000" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <Containers:Extension />
@@ -26,11 +26,11 @@
                     </Grid.RowDefinitions>
                     <Grid x:Name="FieldGrid" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80*" />
-                            <ColumnDefinition Width="141*" />
-                            <ColumnDefinition Width="270*" />
-                            <ColumnDefinition Width="274*" />
-                            <ColumnDefinition Width="262*" />
+                            <ColumnDefinition Width="74*" />
+                            <ColumnDefinition Width="147*" />
+                            <ColumnDefinition Width="245*" />
+                            <ColumnDefinition Width="245*" />
+                            <ColumnDefinition Width="242*" />
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="idTextBox" TextWrapping="NoWrap" IsEnabled="False" Margin="10,-1,10,0" Grid.Column="0" IsReadOnly="True" materialDesign:HintAssist.Hint="ID" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" ToolTip="Auto Generated" Height="53" VerticalAlignment="Top" />
                         <TextBox x:Name="extensionTextBox" TextWrapping="NoWrap" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,-1,10,0" VerticalAlignment="Top" Grid.Column="1" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" MaxLength="14">
@@ -64,7 +64,7 @@
                         </TextBox>
                         <TextBox x:Name="lastNameTextBox" TextWrapping="NoWrap" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,-1,10,0" VerticalAlignment="Top" Grid.Column="3" materialDesign:HintAssist.Hint="Last Name (Optional)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding LastName, Converter={local:EmptyStringConverter}, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="45"/>
                         <TextBox x:Name="departmentTextBox" TextWrapping="NoWrap" IsEnabled="{Binding InputEnabled, ElementName=MyEditWindow}" Height="53" Margin="10,-1,10,0" VerticalAlignment="Top" Grid.Column="4" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding Department, Converter={local:EmptyStringConverter}, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
-                        <TextBox x:Name="extensionNameTextBox" TextWrapping="NoWrap" IsEnabled="False" Margin="9,80,11,0" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Height="54" VerticalAlignment="Top" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Converter={local:EmptyStringConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ToolTip="Auto Generated" />
+                        <TextBox x:Name="extensionNameTextBox" TextWrapping="NoWrap" IsEnabled="False" Margin="9,80,11,0" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Height="54" VerticalAlignment="Top" IsReadOnly="True" materialDesign:HintAssist.Hint="Extension Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" Text="{Binding User, Converter={local:EmptyStringConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ToolTip="Auto Generated" />
                     </Grid>
                     <Grid x:Name="ButtonGrid" Grid.Row="1">
                         <Grid.ColumnDefinitions>
