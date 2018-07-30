@@ -393,11 +393,6 @@ namespace PhoneDirectoryWPF.UI
             }
         }
 
-        private void Window_ContentRendered(object sender, EventArgs e)
-        {
-            InitConnection();
-        }
-
         private void ScaleDownButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             UIScaling.ScaleDown();
@@ -408,6 +403,11 @@ namespace PhoneDirectoryWPF.UI
         {
             UIScaling.ScaleUp();
             SelectedScale = UIScaling.CurrentScalePercent;
+        }
+
+        private void MyMainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitConnection();
         }
     }
 }

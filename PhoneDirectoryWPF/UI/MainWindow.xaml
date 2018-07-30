@@ -12,12 +12,11 @@
         Width="899"
         FontSize="16"
         WindowStartupLocation="CenterScreen"
-        ContentRendered="Window_ContentRendered"
         ResizeMode="CanResizeWithGrip"
         MinHeight="367"
         MinWidth="594"
         Name="MyMainWindow"
-        Style="{DynamicResource GlobalMaterialStyle}">
+        Style="{DynamicResource GlobalMaterialStyle}" Loaded="MyMainWindow_Loaded">
 
     <Window.Resources>
         <DataTemplate x:Key="EditButtonTemplate">
