@@ -21,7 +21,6 @@ namespace PhoneDirectoryWPF.UI
         private Extension extensionContext;
 
         private bool inputEnabled = true;
-        private bool isNew = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -60,7 +59,6 @@ namespace PhoneDirectoryWPF.UI
             saveButton.Visibility = Visibility.Collapsed;
             deleteButton.Visibility = Visibility.Collapsed;
 
-            isNew = true;
             this.Title = "New";
             this.FieldGroupBox.Header = "Add New Extension";
 
@@ -78,7 +76,7 @@ namespace PhoneDirectoryWPF.UI
 
             addButton.Visibility = Visibility.Collapsed;
 
-            this.Title = "Edit";
+            this.Title = string.Format("Edit - {0}", localExtension.User);
             this.FieldGroupBox.Header = "Edit Extension";
             this.extensionContext = localExtension;
             this.DataContext = remoteExtension;
