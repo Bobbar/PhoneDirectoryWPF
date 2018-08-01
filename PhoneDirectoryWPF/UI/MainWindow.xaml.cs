@@ -395,14 +395,12 @@ namespace PhoneDirectoryWPF.UI
 
         private void ScaleDownButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            UIScaling.ScaleDown();
-            SelectedScale = UIScaling.CurrentScalePercent;
+            SelectedScale -= 5;
         }
 
         private void ScaleUpButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            UIScaling.ScaleUp();
-            SelectedScale = UIScaling.CurrentScalePercent;
+            SelectedScale += 5;
         }
 
         private void MyMainWindow_Loaded(object sender, RoutedEventArgs e)
