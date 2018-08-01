@@ -48,8 +48,8 @@
                             <ColumnDefinition Width="261" />
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="extensionTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" KeyUp="searchField_KeyUp" Grid.Column="0" materialDesign:HintAssist.Hint="Extension" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
-                        <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.504,0.45" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
+                        <TextBox x:Name="userTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="1" materialDesign:HintAssist.Hint="Name/User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
+                        <TextBox x:Name="departmentTextBox" Height="42" Margin="10,0,10,4" TextWrapping="Wrap" VerticalAlignment="Bottom" Grid.Column="2" materialDesign:HintAssist.Hint="Department" Style="{StaticResource MaterialDesignFloatingHintTextBox}" KeyUp="searchField_KeyUp" />
                         <Button x:Name="newButton" Content="New" HorizontalAlignment="Left" Height="35" Margin="10,13,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Click="newButton_Click" />
                         <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" Height="35" Margin="0,13,10,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Grid.Column="2" Click="clearButton_Click" />
                     </Grid>
@@ -76,9 +76,9 @@
                 </StatusBarItem>
                 <StatusBarItem Padding="0">
                     <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
-                        <TextBlock Margin="0,0,5,0" >Light</TextBlock>
+                        <TextBlock Margin="0,0,5,0">Light</TextBlock>
                         <ToggleButton Cursor="Hand" ToolTip="Toggle dark or light theme" Name="DarkLightToggle" Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding IsDarkProperty, ElementName=MyMainWindow}"/>
-                        <TextBlock Margin="5,0,0,0" >Dark</TextBlock>
+                        <TextBlock Margin="5,0,0,0">Dark</TextBlock>
                     </StackPanel>
                 </StatusBarItem>
                 <StatusBarItem Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
